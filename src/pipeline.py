@@ -71,7 +71,7 @@ def run_pipeline() -> None:
                 results["failed"].append({"niche": niche_name, "error": "QC failed"})
                 continue
 
-            ready_path = ready_dir / (raw_path.stem + ".jpg")
+            ready_path = ready_dir / (raw_path.stem + ".png")
             upscaler.upscale(raw_path, ready_path)
 
             metadata_writer.write(ready_path, prompt_text, niche_name, contributor_name)
