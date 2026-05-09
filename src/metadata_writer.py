@@ -10,41 +10,51 @@ log = logging.getLogger(__name__)
 
 
 def _generate_metadata(prompt: str, niche: str) -> dict:
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "You are an Adobe Stock metadata specialist. "
-                    "Generate SEO-optimized English metadata for commercial stock photos. "
-                    "Output valid JSON only, no markdown."
-                ),
-            },
-            {
-                "role": "user",
-                "content": (
-                    f"Niche: {niche}\n"
-                    f"Image description: {prompt}\n\n"
-                    "Return JSON with:\n"
-                    '- "title": max 200 chars, descriptive, commercial English title\n'
-                    '- "description": 1-2 sentences describing commercial use cases\n'
-                    '- "keywords": array of 30-50 English keywords, most relevant first, no duplicates'
-                ),
-            },
-        ],
-        max_tokens=600,
-        temperature=0.3,
-        response_format={"type": "json_object"},
-    )
-    return json.loads(response.choices[0].message.content)
+    for attempt in range(3):
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are an Adobe Stock metadata specialist. "
+                        "Generate SEO-optimized English metadata for commercial stock photos. "
+                        "Output valid JSON only, no markdown."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": (
+                        f"Niche: {niche}\n"
+                        f"Image description: {prompt}\n\n"
+                        "Return JSON with:\n"
+                        '- "title": max 200 chars, descriptive, commercial English title\n'
+                        '- "description": 1-2 sentences describing commercial use cases\n'
+                        '- "keywords": array of EXACTLY 40 English keywords, most relevant first, no duplicates. '
+                        "Must include at least 40 items."
+                    ),
+                },
+            ],
+            max_tokens=1000,
+            temperature=0.3,
+            response_format={"type": "json_object"},
+        )
+        meta = json.loads(response.choices[0].message.content)
+        kw_count = len(meta.get("keywords", []))
+        if kw_count >= 25:
+            return meta
+        log.warning(f"Metadata retry {attempt + 1}/3 — only {kw_count} keywords generated")
+    log.error("Failed to generate 25+ keywords after 3 attempts, using last result")
+    return meta
 
 
 def write(image_path: Path, prompt: str, niche: str, contributor_name: str) -> None:
     meta = _generate_metadata(prompt, niche)
     title = meta.get("title", niche)[:200]
     description = meta.get("description", "")
-    keywords = ", ".join(meta.get("keywords", [])[:50])
+    kw_list = meta.get("keywords", [])[:50]
+    log.info(f"Keywords generated: {len(kw_list)}")
+    keywords = ", ".join(kw_list)
 
     success = _run_exiftool_full(image_path, title, description, keywords, prompt, contributor_name)
     if not success:
