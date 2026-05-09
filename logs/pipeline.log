@@ -1,0 +1,41 @@
+
+[2026-05-09] Pipeline complete
+  Succeeded : 0
+  Failed    : 3
+  Est. cost : $0.020
+  FAIL [Authentic Cultural Scenes]: RetryError[<Future at 0x17a6f3360d0 state=finished raised BadRequestError>]
+  FAIL [Retrofuturism]: RetryError[<Future at 0x17a6f335c10 state=finished raised BadRequestError>]
+  FAIL [Sustainable Sophistication]: RetryError[<Future at 0x17a6f531210 state=finished raised BadRequestError>]
+
+[2026-05-09] Pipeline complete
+  Succeeded : 0
+  Failed    : 3
+  Est. cost : $0.020
+  FAIL [Sustainable Sophistication]: ReplicateError Details:
+title: Insufficient credit
+status: 402
+detail: You have insufficient credit to run this model. Go to https://replicate.com/account/billing#billing to purchase credit. Once you purchase credit, please wait a few minutes before trying again.
+  FAIL [Authentic Cultural Scenes]: ReplicateError Details:
+title: Insufficient credit
+status: 402
+detail: You have insufficient credit to run this model. Go to https://replicate.com/account/billing#billing to purchase credit. Once you purchase credit, please wait a few minutes before trying again.
+  FAIL [Retrofuturism]: ReplicateError Details:
+title: Insufficient credit
+status: 402
+detail: You have insufficient credit to run this model. Go to https://replicate.com/account/billing#billing to purchase credit. Once you purchase credit, please wait a few minutes before trying again.
+
+[2026-05-09] Pipeline complete
+  Succeeded : 0
+  Failed    : 3
+  Est. cost : $0.020
+  FAIL [Authentic Cultural Scenes]: [WinError 2] The system cannot find the file specified
+  FAIL [Sustainable Sophistication]: [WinError 2] The system cannot find the file specified
+  FAIL [Technical/Industrial Trades]: [Errno 2] No such file or directory: 'D:\\Work\\Meaw - Q\\Sandbox\\StockPhoto\\output\\2026-05-09\\generated\\220137_technical\\industrial.png'
+
+[2026-05-09] Pipeline complete
+  Succeeded : 0
+  Failed    : 3
+  Est. cost : $0.020
+  FAIL [Technical/Industrial Trades]: Authentication failed.
+  FAIL [Sustainable Sophistication]: Authentication failed.
+  FAIL [Authentic Cultural Scenes]: Authentication failed.

@@ -1,0 +1,51 @@
+name: Daily Stock Photo Pipeline
+
+on:
+  schedule:
+    - cron: '0 1 * * *'   # 08:00 ICT = 01:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install exiftool
+        run: |
+          sudo apt-get install -y libimage-exiftool-perl
+          echo "exiftool version: $(exiftool -ver)"
+
+      - name: Run pipeline
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
+          ADOBE_STOCK_SFTP_USER: ${{ secrets.ADOBE_STOCK_SFTP_USER }}
+          ADOBE_STOCK_SFTP_PASS: ${{ secrets.ADOBE_STOCK_SFTP_PASS }}
+        run: python run_daily.py
+
+      - name: Commit niche usage log
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/niche_usage_log.json logs/pipeline.log
+          git diff --staged --quiet || git commit -m "chore: niche log $(date +%Y-%m-%d)"
+          git push
+
+      - name: Upload ready images as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stock-photos-${{ github.run_id }}
+          path: output/*/ready/
+          retention-days: 7

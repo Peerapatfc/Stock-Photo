@@ -1,0 +1,134 @@
+import json
+import random
+from datetime import date, timedelta
+from pathlib import Path
+
+import yaml
+from openai import OpenAI
+
+client = OpenAI()
+
+BLOCKED_TERMS = [
+    "greg rutkowski", "artgerm", "wlop", "alphonse mucha", "makoto shinkai",
+    "kentaro miura", "disney", "pixar", "marvel", "dc comics", "studio ghibli",
+    "nintendo", "pokemon", "ghibli",
+]
+
+
+def load_niches(config_path: Path) -> list[dict]:
+    with open(config_path, encoding="utf-8") as f:
+        return yaml.safe_load(f)["niches"]
+
+
+def load_usage_log(log_path: Path) -> dict:
+    if log_path.exists():
+        with open(log_path, encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+
+def save_usage_log(log_path: Path, log: dict) -> None:
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(log_path, "w", encoding="utf-8") as f:
+        json.dump(log, f, indent=2, ensure_ascii=False)
+
+
+def _is_on_cooldown(niche: dict, log: dict, today: date) -> bool:
+    cooldown = niche.get("recent_cooldown_days", 3)
+    for i in range(1, cooldown + 1):
+        d = (today - timedelta(days=i)).isoformat()
+        if niche["name"] in log.get(d, []):
+            return True
+    return False
+
+
+def _select_niches(niches: list[dict], log: dict, today: date, quota: int) -> list[dict]:
+    available = [n for n in niches if not _is_on_cooldown(n, log, today)]
+    if not available:
+        available = niches  # fallback: all on cooldown
+
+    weights = [n["weight"] for n in available]
+    total = sum(weights)
+    norm_weights = [w / total for w in weights]
+
+    selected = []
+    pool = list(zip(available, norm_weights))
+
+    for _ in range(quota):
+        if not pool:
+            pool = list(zip(available, norm_weights))
+        items, ws = zip(*pool)
+        chosen = random.choices(list(items), weights=list(ws), k=1)[0]
+        selected.append(chosen)
+        pool = [(n, w) for n, w in pool if n["name"] != chosen["name"]]
+
+    return selected
+
+
+def _sanitize(prompt: str) -> str:
+    p = prompt.lower()
+    for term in BLOCKED_TERMS:
+        p = p.replace(term, "")
+    return " ".join(prompt.split())
+
+
+def _expand_prompt(base_prompt: str, niche_name: str) -> str:
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "You are a professional stock photo prompt writer. "
+                    "Expand the base prompt into a detailed, commercially viable image generation prompt. "
+                    "Rules: no artist names, no brand names, no real people or celebrities, no watermarks. "
+                    "Output only the prompt text, nothing else."
+                ),
+            },
+            {
+                "role": "user",
+                "content": (
+                    f"Niche: {niche_name}\n"
+                    f"Base prompt: {base_prompt}\n\n"
+                    "Rewrite as a varied, detailed version. "
+                    "Change at least one of: composition angle, time of day, color palette, or subject detail. "
+                    "End with: photorealistic, commercial stock photography, no people, no watermark, 4K"
+                ),
+            },
+        ],
+        max_tokens=300,
+        temperature=0.9,
+    )
+    raw = response.choices[0].message.content.strip()
+    return _sanitize(raw)
+
+
+def generate_prompts(
+    niches_path: Path,
+    log_path: Path,
+    quota: int,
+    today: date | None = None,
+) -> list[tuple[str, str]]:
+    if today is None:
+        today = date.today()
+    niches = load_niches(niches_path)
+    log = load_usage_log(log_path)
+    selected = _select_niches(niches, log, today, quota)
+
+    results = []
+    for niche in selected:
+        base = random.choice(niche["base_prompts"])
+        prompt = _expand_prompt(base, niche["name"])
+        results.append((prompt, niche["name"]))
+
+    return results
+
+
+def update_usage_log(log_path: Path, used_niches: list[str], today: date | None = None) -> None:
+    if today is None:
+        today = date.today()
+    log = load_usage_log(log_path)
+    log[today.isoformat()] = used_niches
+    cutoff = (today - timedelta(days=30)).isoformat()
+    log = {k: v for k, v in log.items() if k >= cutoff}
+    save_usage_log(log_path, log)
