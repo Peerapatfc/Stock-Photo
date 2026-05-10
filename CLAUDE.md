@@ -2,7 +2,7 @@
 
 ## Project Goal
 
-Daily pipeline: gpt-image-2 → Real-ESRGAN upscale → IPTC metadata → Adobe Stock SFTP upload.
+Daily pipeline: gpt-image-2 → Real-ESRGAN upscale → IPTC metadata → Adobe Stock SFTP upload → Google Drive backup → Telegram notification.
 Target: 3 images/day, ~$4.56/month cost, sell on Adobe Stock at 33% royalty.
 
 ## Key Constraints
@@ -11,14 +11,17 @@ Target: 3 images/day, ~$4.56/month cost, sell on Adobe Stock at 33% royalty.
 - **Niche slugs use `re.sub(r"[^\w]", "_", name)`** — slash in "Technical/Industrial Trades" breaks file paths.
 - **exiftool required for metadata** — gracefully skip (log warning) if not found, don't crash pipeline.
 - **SFTP skipped when credentials missing** — `ADOBE_STOCK_SFTP_USER/PASS` not set = pipeline continues without upload.
+- **Google Drive skipped when credentials missing** — all 4 `GOOGLE_OAUTH_*` + `GOOGLE_DRIVE_FOLDER_ID` must be set; any missing = skip gracefully.
+- **Telegram skipped when credentials missing** — `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` both required; sends photo of first successful image.
 - **Real-ESRGAN via Replicate, not Pillow** — Adobe Stock detects and rejects simple LANCZOS upscaling.
 - **All prompts must avoid real faces** — reduces Adobe Stock rejection risk and contributor rating damage.
+- **`google_drive_uploader.create_run_folder` returns `(folder_id, link)` tuple** — both values needed; link passed to Telegram notifier.
 
 ## Architecture
 
 ```
 run_daily.py → pipeline.py (error-isolated per image)
-  prompt_generator → image_generator → qc_checker → upscaler → metadata_writer → adobe_stock_uploader → report
+  prompt_generator → image_generator → qc_checker → upscaler → metadata_writer → adobe_stock_uploader → google_drive_uploader → report → telegram_notifier
 ```
 
 Each image wrapped in try/except — one failure doesn't stop the batch.
@@ -32,10 +35,16 @@ Each image wrapped in try/except — one failure doesn't stop the batch.
 ## Environment Variables
 
 ```
-OPENAI_API_KEY       — gpt-image-2 + GPT-4o
-REPLICATE_API_TOKEN  — Real-ESRGAN upscaling
-ADOBE_STOCK_SFTP_USER — contributor SFTP username
-ADOBE_STOCK_SFTP_PASS — contributor SFTP password
+OPENAI_API_KEY            — gpt-image-2 + GPT-4o
+REPLICATE_API_TOKEN       — Real-ESRGAN upscaling
+ADOBE_STOCK_SFTP_USER     — contributor SFTP username (optional)
+ADOBE_STOCK_SFTP_PASS     — contributor SFTP password (optional)
+GOOGLE_OAUTH_CLIENT_ID    — Google Drive OAuth2 (optional)
+GOOGLE_OAUTH_CLIENT_SECRET
+GOOGLE_OAUTH_REFRESH_TOKEN
+GOOGLE_DRIVE_FOLDER_ID    — target Drive folder ID (optional)
+TELEGRAM_BOT_TOKEN        — Telegram bot (optional)
+TELEGRAM_CHAT_ID          — chat/channel to notify (optional)
 ```
 
 ## Niche Rotation Logic
@@ -66,5 +75,7 @@ Required Adobe Stock fields: `Title`, `Description`, `Keywords`, `DigitalSourceT
 |-------|--------|
 | exiftool not on Windows PATH | Skip gracefully, log warning |
 | SFTP creds not set | Skip upload, pipeline continues |
+| Google Drive creds not set | Skip upload, pipeline continues |
+| Telegram creds not set | Skip notification, pipeline continues |
 | gpt-image-2 400 on response_format | Fixed — param removed |
 | Slash in niche name breaks filename | Fixed — regex slug |

@@ -2,7 +2,7 @@
 
 Daily automated pipeline: generate AI stock photos → upscale → embed metadata → upload to Adobe Stock.
 
-**Stack:** gpt-image-2 · Real-ESRGAN (Replicate) · exiftool · paramiko · GitHub Actions
+**Stack:** gpt-image-2 · Real-ESRGAN (Replicate) · exiftool · paramiko · Google Drive · Telegram · GitHub Actions
 
 ---
 
@@ -11,13 +11,15 @@ Daily automated pipeline: generate AI stock photos → upscale → embed metadat
 ```
 run_daily.py
     └── pipeline.py
-          ├── prompt_generator.py   — weighted niche rotation + GPT-4o prompt expansion
-          ├── image_generator.py    — gpt-image-2 medium 1536×1024 (tenacity retry)
-          ├── qc_checker.py         — resolution / filesize / color mode checks
-          ├── upscaler.py           — Real-ESRGAN x2 via Replicate → 3072×2048
-          ├── metadata_writer.py    — exiftool IPTC 2025.1 + Adobe Stock required fields
-          ├── adobe_stock_uploader.py — paramiko SFTP → sftp.contributor.adobestock.com
-          └── report.py             — daily summary + cost log
+          ├── prompt_generator.py      — weighted niche rotation + GPT-4o prompt expansion
+          ├── image_generator.py       — gpt-image-2 medium 1536×1024 (tenacity retry)
+          ├── qc_checker.py            — resolution / filesize / color mode checks
+          ├── upscaler.py              — Real-ESRGAN x2 via Replicate → 3072×2048
+          ├── metadata_writer.py       — exiftool IPTC 2025.1 + Adobe Stock required fields
+          ├── adobe_stock_uploader.py  — paramiko SFTP → sftp.contributor.adobestock.com
+          ├── google_drive_uploader.py — OAuth2 upload to dated Drive subfolder (optional)
+          ├── telegram_notifier.py     — sendPhoto summary with Drive link (optional)
+          └── report.py               — daily summary + cost log
 ```
 
 ## Output Structure
@@ -57,6 +59,15 @@ OPENAI_API_KEY=sk-...
 REPLICATE_API_TOKEN=r8_...
 ADOBE_STOCK_SFTP_USER=...
 ADOBE_STOCK_SFTP_PASS=...
+
+# optional — skip if not set
+GOOGLE_OAUTH_CLIENT_ID=...
+GOOGLE_OAUTH_CLIENT_SECRET=...
+GOOGLE_OAUTH_REFRESH_TOKEN=...
+GOOGLE_DRIVE_FOLDER_ID=...
+
+TELEGRAM_BOT_TOKEN=...
+TELEGRAM_CHAT_ID=...
 ```
 
 ### 4. Edit config
@@ -81,12 +92,18 @@ Cron: **08:00 ICT daily** (`0 1 * * *`)
 
 Required secrets (Settings → Secrets → Actions):
 
-| Secret | Value |
-|--------|-------|
-| `OPENAI_API_KEY` | OpenAI API key |
-| `REPLICATE_API_TOKEN` | Replicate API token |
-| `ADOBE_STOCK_SFTP_USER` | Adobe Stock contributor SFTP username |
-| `ADOBE_STOCK_SFTP_PASS` | Adobe Stock contributor SFTP password |
+| Secret | Required | Value |
+|--------|----------|-------|
+| `OPENAI_API_KEY` | Yes | OpenAI API key |
+| `REPLICATE_API_TOKEN` | Yes | Replicate API token |
+| `ADOBE_STOCK_SFTP_USER` | No | Adobe Stock contributor SFTP username |
+| `ADOBE_STOCK_SFTP_PASS` | No | Adobe Stock contributor SFTP password |
+| `GOOGLE_OAUTH_CLIENT_ID` | No | Google OAuth2 client ID |
+| `GOOGLE_OAUTH_CLIENT_SECRET` | No | Google OAuth2 client secret |
+| `GOOGLE_OAUTH_REFRESH_TOKEN` | No | Google OAuth2 refresh token |
+| `GOOGLE_DRIVE_FOLDER_ID` | No | Target Drive folder ID |
+| `TELEGRAM_BOT_TOKEN` | No | Telegram bot token (from @BotFather) |
+| `TELEGRAM_CHAT_ID` | No | Telegram chat/channel ID |
 
 Manual trigger: Actions → Daily Stock Photo Pipeline → Run workflow
 
