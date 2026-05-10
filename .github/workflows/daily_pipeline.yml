@@ -32,6 +32,12 @@ jobs:
           REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
           ADOBE_STOCK_SFTP_USER: ${{ secrets.ADOBE_STOCK_SFTP_USER }}
           ADOBE_STOCK_SFTP_PASS: ${{ secrets.ADOBE_STOCK_SFTP_PASS }}
+          GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+          GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+          GOOGLE_OAUTH_REFRESH_TOKEN: ${{ secrets.GOOGLE_OAUTH_REFRESH_TOKEN }}
+          GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python run_daily.py
 
       - name: Commit niche usage log

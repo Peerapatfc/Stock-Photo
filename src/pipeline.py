@@ -8,11 +8,13 @@ import yaml
 
 from src import (
     adobe_stock_uploader,
+    google_drive_uploader,
     image_generator,
     metadata_writer,
     prompt_generator,
     qc_checker,
     report,
+    telegram_notifier,
     upscaler,
 )
 
@@ -56,6 +58,8 @@ def run_pipeline() -> None:
 
     log.info(f"Pipeline start | date={today_str} quota={quota}")
 
+    drive_folder_id, drive_link = google_drive_uploader.create_run_folder(today_str)
+
     prompts = prompt_generator.generate_prompts(niches_path, log_path, quota, today)
 
     results: dict[str, list] = {"ok": [], "failed": []}
@@ -79,6 +83,9 @@ def run_pipeline() -> None:
             if not skip_upload:
                 adobe_stock_uploader.upload(ready_path, sftp_user, sftp_pass)
 
+            if drive_folder_id:
+                google_drive_uploader.upload(ready_path, drive_folder_id)
+
             results["ok"].append(str(ready_path))
             used_niches.append(niche_name)
 
@@ -88,3 +95,4 @@ def run_pipeline() -> None:
 
     prompt_generator.update_usage_log(log_path, used_niches, today)
     report.write(results, pipeline_log)
+    telegram_notifier.send_report(results, today_str, drive_link)
