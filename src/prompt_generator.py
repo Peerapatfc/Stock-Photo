@@ -82,6 +82,10 @@ def _expand_prompt(base_prompt: str, niche_name: str) -> str:
                     "You are a professional stock photo prompt writer. "
                     "Expand the base prompt into a detailed, commercially viable image generation prompt. "
                     "Rules: no artist names, no brand names, no real people or celebrities, no watermarks. "
+                    "CRITICAL: Avoid subjects that are massively oversaturated on stock photo sites — "
+                    "do NOT use: wind turbines on hills, solar panels on rooftops, generic sunsets, "
+                    "hands holding seedlings, green leaves on white backgrounds, or any cliché eco/nature imagery. "
+                    "Favor unusual angles, uncommon subject details, and niche industrial or technical specificity. "
                     "Output only the prompt text, nothing else."
                 ),
             },
@@ -90,8 +94,9 @@ def _expand_prompt(base_prompt: str, niche_name: str) -> str:
                 "content": (
                     f"Niche: {niche_name}\n"
                     f"Base prompt: {base_prompt}\n\n"
-                    "Rewrite as a varied, detailed version. "
-                    "Change at least one of: composition angle, time of day, color palette, or subject detail. "
+                    "Rewrite as a varied, detailed version with high commercial differentiation. "
+                    "Change at least two of: composition angle, time of day, color palette, subject detail, or setting. "
+                    "Avoid stock photo clichés. Favor specific, underserved visual subjects. "
                     "End with: photorealistic, commercial stock photography, no people, no watermark, 4K"
                 ),
             },

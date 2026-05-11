@@ -29,10 +29,10 @@ niches:
     weight: 0.20
     recent_cooldown_days: 3
     base_prompts:
-      - "Solar panels on a modern eco-villa rooftop surrounded by lush tropical vegetation, aerial perspective, golden hour lighting, photorealistic architectural photography, no people"
-      - "Minimalist eco-friendly product packaging made from kraft paper and natural twine on a white marble surface, clean flat lay, sustainable lifestyle photography, no people"
-      - "Wind turbines rising from green rolling hills at dusk, soft purple and orange sky, wide landscape photography, no people"
-      - "Close-up of vibrant green moss and native ferns growing on ancient stone wall, macro nature photography, soft natural light, no people"
+      - "Biomass pellet fuel in a wicker basket beside a modern pellet stove, warm interior light, macro detail on wood pellet texture, sustainable home heating concept, product photography, no people"
+      - "Vertical urban farm wall with hydroponic lettuce and herbs under LED grow lights, industrial warehouse interior, tight grid pattern of green plants, commercial photography, no people"
+      - "Disassembled lithium battery cells from an electric vehicle laid out on a workshop table, overhead flat lay, industrial detail photography, recycling concept, no people"
+      - "Terracotta water filtration vessel on rough concrete surface, water droplets on ceramic texture, sustainable water purification concept, macro product photography, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
