@@ -9,9 +9,24 @@ from openai import OpenAI
 client = OpenAI()
 
 BLOCKED_TERMS = [
+    # Artist names (copyright in prompt = noncompliance)
     "greg rutkowski", "artgerm", "wlop", "alphonse mucha", "makoto shinkai",
-    "kentaro miura", "disney", "pixar", "marvel", "dc comics", "studio ghibli",
-    "nintendo", "pokemon", "ghibli",
+    "kentaro miura",
+    # Franchise / brand names
+    "disney", "pixar", "marvel", "dc comics", "studio ghibli", "nintendo",
+    "pokemon", "ghibli", "star wars", "harry potter", "batman", "superman",
+    "spider-man", "iron man", "blade runner", "cyberpunk 2077", "minecraft",
+    "lego", "ikea", "apple", "samsung", "coca-cola", "pepsi", "nike", "adidas",
+    # Identifiable real-world locations (architecture/landmark IP)
+    "eiffel tower", "burj khalifa", "empire state building", "colosseum",
+    "big ben", "sydney opera house", "taj mahal", "sagrada familia",
+    "chrysler building", "flatiron building", "shard", "louvre",
+    "times square", "piccadilly circus",
+    # Government agencies
+    "nasa", "cia", "fbi", "interpol",
+    # AI terms forbidden in Adobe Stock title/keywords
+    "generative ai", "ai-generated", "ai generated", "artificial intelligence",
+    "machine learning", "stable diffusion", "midjourney", "dall-e", "dalle",
 ]
 
 
@@ -65,11 +80,19 @@ def _select_niches(niches: list[dict], log: dict, today: date, quota: int) -> li
     return selected
 
 
-def _sanitize(prompt: str) -> str:
-    p = prompt.lower()
+def _sanitize(text: str) -> str:
+    lower = text.lower()
     for term in BLOCKED_TERMS:
-        p = p.replace(term, "")
-    return " ".join(prompt.split())
+        if term in lower:
+            idx = lower.find(term)
+            text = text[:idx] + text[idx + len(term):]
+            lower = text.lower()
+    return " ".join(text.split())
+
+
+def sanitize_metadata(title: str, description: str, keywords: list[str]) -> tuple[str, str, list[str]]:
+    clean_kw = [kw for kw in keywords if not any(t in kw.lower() for t in BLOCKED_TERMS)]
+    return _sanitize(title), _sanitize(description), clean_kw
 
 
 def _expand_prompt(base_prompt: str, niche_name: str) -> str:
@@ -86,6 +109,10 @@ def _expand_prompt(base_prompt: str, niche_name: str) -> str:
                     "do NOT use: wind turbines on hills, solar panels on rooftops, generic sunsets, "
                     "hands holding seedlings, green leaves on white backgrounds, or any cliché eco/nature imagery. "
                     "Favor unusual angles, uncommon subject details, and niche industrial or technical specificity. "
+                    "CRITICAL IP RULES: Never evoke recognizable fictional universes, film aesthetics, "
+                    "or franchise visual styles. No Blade Runner-style neon rain cities, no Star Wars elements, "
+                    "no Marvel/DC visual language, no game franchise environments. "
+                    "Keep all imagery generic and commercially safe. "
                     "Output only the prompt text, nothing else."
                 ),
             },

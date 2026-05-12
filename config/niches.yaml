@@ -3,10 +3,10 @@ niches:
     weight: 0.35
     recent_cooldown_days: 3
     base_prompts:
-      - "Thai floating market at dawn, colorful wooden boats loaded with tropical fruits and marigold garlands, golden morning light reflecting on calm canal water, no people visible, photorealistic commercial photography, 4K"
-      - "Traditional Thai blue ceramic pottery with intricate floral patterns arranged on a rustic wooden shelf, soft studio lighting, product photography style, no people"
-      - "Ornate Thai temple rooftop detail with golden naga serpents and colorful glass mosaic tiles, warm afternoon light, architectural photography, no people"
-      - "Authentic Thai street food stall close-up, colorful bowls of pad thai with fresh lime and bean sprouts, vibrant food photography, overhead shot, no people"
+      - "Traditional Thai hand-woven silk on a wooden floor loom, extreme close-up of interlaced warp and weft threads in deep crimson and gold, textile craft macro photography, shallow depth of field, no people"
+      - "Antique Thai lacquerware box lid with gold leaf inlay on matte black surface, macro detail of intricate floral geometric pattern, product photography on dark velvet, no people"
+      - "Dried kaffir lime leaves and galangal root arranged on weathered stone mortar, macro ingredient photography, soft top-down natural light, culinary craft concept, no people"
+      - "Traditional palm leaf manuscript fragment with ancient script inscription, macro texture photography, warm amber light, aged organic material detail, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
@@ -42,10 +42,10 @@ niches:
     weight: 0.15
     recent_cooldown_days: 4
     base_prompts:
-      - "Retro-futuristic city skyline at night with neon purple and cyan signs reflected in rain-wet streets, 1980s aesthetic, cinematic wide shot, no people visible"
-      - "Vintage analog synthesizer with glowing neon green knobs and dials on a dark studio desk, holographic light reflections, 80s aesthetic product photography, no people"
-      - "Retro computer terminal with amber phosphor screen displaying abstract data patterns, chrome bezels, dark background, 1980s sci-fi aesthetic, no people"
-      - "Holographic display orb floating in dark space with data streams and geometric patterns, retrofuturism concept art style, photorealistic rendering, no people"
+      - "Abstract futuristic control room interior with glowing holographic panels and curved walls, warm amber and teal light, overhead isometric view, no fictional franchise elements, no people"
+      - "Vintage analog synthesizer with glowing green VU meter needles on a dark studio desk, close-up macro on knobs and patch cables, retro electronics product photography, no people"
+      - "Retro mainframe computer room with reel-to-reel tape drives and blinking indicator lights, warm amber overhead light, 1960s computing aesthetic, no people"
+      - "Transparent acrylic model of a concept monorail train on a display stand, studio photography, clean white background, industrial design aesthetic, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true

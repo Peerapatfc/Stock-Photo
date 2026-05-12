@@ -4,6 +4,7 @@ import subprocess
 from pathlib import Path
 
 from openai import OpenAI
+from prompt_generator import sanitize_metadata
 
 client = OpenAI()
 log = logging.getLogger(__name__)
@@ -19,6 +20,11 @@ def _generate_metadata(prompt: str, niche: str) -> dict:
                     "content": (
                         "You are an Adobe Stock metadata specialist. "
                         "Generate SEO-optimized English metadata for commercial stock photos. "
+                        "CRITICAL IP RULES — never use these in title, description, or keywords: "
+                        "brand names, franchise names, film/TV/game titles, character names, "
+                        "trademarked aesthetic terms (e.g. 'cyberpunk', 'steampunk' as brand), "
+                        "any term that implies a specific copyrighted work or style. "
+                        "Use only generic descriptive terms. "
                         "Output valid JSON only, no markdown."
                     ),
                 },
@@ -28,9 +34,14 @@ def _generate_metadata(prompt: str, niche: str) -> dict:
                         f"Niche: {niche}\n"
                         f"Image description: {prompt}\n\n"
                         "Return JSON with:\n"
-                        '- "title": max 200 chars, descriptive, commercial English title\n'
+                        '- "title": max 200 chars, descriptive commercial English title. '
+                        "Include the main subject. Do NOT include: 'generative AI', 'AI-generated', "
+                        "'artificial intelligence', 'AI', 'machine learning', or any AI-related terms.\n"
                         '- "description": 1-2 sentences describing commercial use cases\n'
-                        '- "keywords": array of EXACTLY 40 English keywords, most relevant first, no duplicates. '
+                        '- "keywords": array of EXACTLY 40 English keywords, no duplicates. '
+                        "IMPORTANT: the first 10 keywords MUST include the individual words and concepts "
+                        "from the title, in order of relevance. Remaining 30 keywords expand to related concepts. "
+                        "Do NOT include 'generative AI', 'AI-generated', 'artificial intelligence', or any AI-related terms in keywords. "
                         "Must include at least 40 items."
                     ),
                 },
@@ -50,9 +61,11 @@ def _generate_metadata(prompt: str, niche: str) -> dict:
 
 def write(image_path: Path, prompt: str, niche: str, contributor_name: str) -> None:
     meta = _generate_metadata(prompt, niche)
-    title = meta.get("title", niche)[:200]
-    description = meta.get("description", "")
-    kw_list = meta.get("keywords", [])[:50]
+    title, description, kw_list = sanitize_metadata(
+        meta.get("title", niche)[:200],
+        meta.get("description", ""),
+        meta.get("keywords", [])[:50],
+    )
     log.info(f"Keywords generated: {len(kw_list)}")
     keywords = ", ".join(kw_list)
 
