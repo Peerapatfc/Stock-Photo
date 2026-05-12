@@ -4,7 +4,7 @@ import subprocess
 from pathlib import Path
 
 from openai import OpenAI
-from prompt_generator import sanitize_metadata
+from .prompt_generator import sanitize_metadata
 
 client = OpenAI()
 log = logging.getLogger(__name__)
