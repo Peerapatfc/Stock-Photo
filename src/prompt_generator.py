@@ -113,6 +113,9 @@ def _expand_prompt(base_prompt: str, niche_name: str) -> str:
                     "or franchise visual styles. No Blade Runner-style neon rain cities, no Star Wars elements, "
                     "no Marvel/DC visual language, no game franchise environments. "
                     "Keep all imagery generic and commercially safe. "
+                    "QUALITY RULES: Describe naturally balanced lighting — no dramatic overexposure, "
+                    "no crushed shadows. Avoid describing oversaturated or heavily filtered looks. "
+                    "Prefer neutral, accurate color reproduction with natural contrast. "
                     "Output only the prompt text, nothing else."
                 ),
             },

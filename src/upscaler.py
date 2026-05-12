@@ -16,7 +16,7 @@ def upscale(input_path: Path, output_path: Path) -> Path:
     with open(input_path, "rb") as f:
         output = replicate.run(
             MODEL,
-            input={"image": f, "scale": 2, "face_enhance": False},
+            input={"image": f, "scale": 4, "face_enhance": False},
         )
 
     if hasattr(output, "read"):

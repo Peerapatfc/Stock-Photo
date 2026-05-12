@@ -20,7 +20,7 @@ def generate_image(prompt: str) -> bytes:
         model="gpt-image-2",
         prompt=prompt,
         size="1536x1024",
-        quality="medium",
+        quality="high",
         n=1,
     )
     data = response.data[0]
@@ -45,7 +45,7 @@ def save_generated(img_bytes: bytes, prompt: str, niche: str, output_dir: Path) 
                 "niche": niche,
                 "model": "gpt-image-2",
                 "size": "1536x1024",
-                "quality": "medium",
+                "quality": "high",
                 "generated_at": datetime.now().isoformat(),
             },
             ensure_ascii=False,
