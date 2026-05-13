@@ -64,3 +64,9 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   Succeeded : 3
   Failed    : 0
   Est. cost : $0.152
+
+[2026-05-13] Pipeline complete
+  Succeeded : 2
+  Failed    : 1
+  Est. cost : $0.108
+  FAIL [Technical/Industrial Trades]: QC failed
