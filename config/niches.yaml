@@ -1,6 +1,58 @@
 niches:
+  - name: "Technical/Industrial Trades"
+    weight: 0.25
+    recent_cooldown_days: 3
+    base_prompts:
+      - "Electronic circuit board with green PCB traces and gold components, macro photography, sharp detail on capacitors and microchips, dark background, no people"
+      - "Precision CNC milling machine cutting metal with sparks, close-up of cutting tool on stainless steel workpiece, industrial photography, dramatic factory lighting, no people"
+      - "Industrial robotic welding arm in action, orange sparks flying in dark factory environment, long exposure, no people visible, commercial photography"
+      - "Collection of precision mechanical engineering tools arranged on a dark metal surface, socket wrenches, calipers, and drill bits, flat lay product photography, no people"
+    constraints:
+      no_artist_names: true
+      no_real_faces: true
+      no_brand_logos: true
+
+  - name: "Dark Cyber Neon"
+    weight: 0.20
+    recent_cooldown_days: 3
+    base_prompts:
+      - "Glowing blue neon circuit board traces on pure black background, macro detail, digital cyber aesthetic, no people"
+      - "Electric blue energy rings and data flow particles on black void, abstract technology background, no people"
+      - "Neon purple and cyan light beams crossing dark space, futuristic digital grid, abstract tech wallpaper, no people"
+      - "Illuminated fiber optic cables fanning out on black surface, macro photography, blue and white light trails, no people"
+    constraints:
+      no_artist_names: true
+      no_real_faces: true
+      no_brand_logos: true
+
+  - name: "Retrofuturism"
+    weight: 0.20
+    recent_cooldown_days: 4
+    base_prompts:
+      - "Abstract futuristic control room interior with glowing holographic panels and curved walls, warm amber and teal light, overhead isometric view, no fictional franchise elements, no people"
+      - "Vintage analog synthesizer with glowing green VU meter needles on a dark studio desk, close-up macro on knobs and patch cables, retro electronics product photography, no people"
+      - "Retro mainframe computer room with reel-to-reel tape drives and blinking indicator lights, warm amber overhead light, 1960s computing aesthetic, no people"
+      - "Transparent acrylic model of a concept monorail train on a display stand, studio photography, clean white background, industrial design aesthetic, no people"
+    constraints:
+      no_artist_names: true
+      no_real_faces: true
+      no_brand_logos: true
+
+  - name: "Abstract Color Texture"
+    weight: 0.10
+    recent_cooldown_days: 3
+    base_prompts:
+      - "Iridescent soap bubble surface with rainbow interference patterns, macro photography, smooth gradient abstract, no people"
+      - "Holographic foil texture with shifting pink purple teal colors, abstract background, product shot detail, no people"
+      - "Flowing liquid metallic paint in teal and gold, overhead macro, abstract color texture, no people"
+      - "Silk fabric with iridescent color-shifting sheen, close-up texture, abstract background, no people"
+    constraints:
+      no_artist_names: true
+      no_real_faces: true
+      no_brand_logos: true
+
   - name: "Authentic Cultural Scenes"
-    weight: 0.35
+    weight: 0.15
     recent_cooldown_days: 3
     base_prompts:
       - "Traditional Thai hand-woven silk on a wooden floor loom, extreme close-up of interlaced warp and weft threads in deep crimson and gold, textile craft macro photography, shallow depth of field, no people"
@@ -12,40 +64,14 @@ niches:
       no_real_faces: true
       no_brand_logos: true
 
-  - name: "Technical/Industrial Trades"
-    weight: 0.30
-    recent_cooldown_days: 3
-    base_prompts:
-      - "Precision CNC milling machine cutting metal with sparks, close-up of cutting tool on stainless steel workpiece, industrial photography, dramatic factory lighting, no people"
-      - "Electronic circuit board with green PCB traces and gold components, macro photography, sharp detail on capacitors and microchips, dark background, no people"
-      - "Industrial robotic welding arm in action, orange sparks flying in dark factory environment, long exposure, no people visible, commercial photography"
-      - "Collection of precision mechanical engineering tools arranged on a dark metal surface, socket wrenches, calipers, and drill bits, flat lay product photography, no people"
-    constraints:
-      no_artist_names: true
-      no_real_faces: true
-      no_brand_logos: true
-
   - name: "Sustainable Sophistication"
-    weight: 0.20
+    weight: 0.10
     recent_cooldown_days: 3
     base_prompts:
       - "Biomass pellet fuel in a wicker basket beside a modern pellet stove, warm interior light, macro detail on wood pellet texture, sustainable home heating concept, product photography, no people"
       - "Vertical urban farm wall with hydroponic lettuce and herbs under LED grow lights, industrial warehouse interior, tight grid pattern of green plants, commercial photography, no people"
       - "Disassembled lithium battery cells from an electric vehicle laid out on a workshop table, overhead flat lay, industrial detail photography, recycling concept, no people"
       - "Terracotta water filtration vessel on rough concrete surface, water droplets on ceramic texture, sustainable water purification concept, macro product photography, no people"
-    constraints:
-      no_artist_names: true
-      no_real_faces: true
-      no_brand_logos: true
-
-  - name: "Retrofuturism"
-    weight: 0.15
-    recent_cooldown_days: 4
-    base_prompts:
-      - "Abstract futuristic control room interior with glowing holographic panels and curved walls, warm amber and teal light, overhead isometric view, no fictional franchise elements, no people"
-      - "Vintage analog synthesizer with glowing green VU meter needles on a dark studio desk, close-up macro on knobs and patch cables, retro electronics product photography, no people"
-      - "Retro mainframe computer room with reel-to-reel tape drives and blinking indicator lights, warm amber overhead light, 1960s computing aesthetic, no people"
-      - "Transparent acrylic model of a concept monorail train on a display stand, studio photography, clean white background, industrial design aesthetic, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
