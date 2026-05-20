@@ -16,10 +16,10 @@ niches:
     weight: 0.20
     recent_cooldown_days: 3
     base_prompts:
-      - "Glowing blue neon circuit board traces on pure black background, macro detail, digital cyber aesthetic, no people"
-      - "Electric blue energy rings and data flow particles on black void, abstract technology background, no people"
-      - "Neon purple and cyan light beams crossing dark space, futuristic digital grid, abstract tech wallpaper, no people"
-      - "Illuminated fiber optic cables fanning out on black surface, macro photography, blue and white light trails, no people"
+      - "Glowing blue neon circuit board traces on deep midnight blue background, macro detail, digital cyber aesthetic, subtle depth gradient, no people"
+      - "Electric blue energy rings and data flow particles on deep indigo background with subtle atmospheric haze, abstract technology, no people"
+      - "Neon purple and cyan light beams on deep charcoal background with subtle texture, futuristic digital grid, abstract tech, no people"
+      - "Illuminated fiber optic cables on deep slate-grey surface with subtle reflection, macro photography, blue and white light trails, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true

@@ -39,6 +39,8 @@ def run_pipeline() -> None:
     today_str = today.isoformat()
 
     quota = settings.get("daily_quota", 3)
+    spare_buffer = settings.get("spare_buffer", 2)
+    total_to_generate = quota + spare_buffer
     contributor_name = settings.get("contributor_name", "Contributor")
 
     sftp_user = os.environ.get("ADOBE_STOCK_SFTP_USER", "")
@@ -60,12 +62,14 @@ def run_pipeline() -> None:
 
     drive_folder_id, drive_link = google_drive_uploader.create_run_folder(today_str)
 
-    prompts = prompt_generator.generate_prompts(niches_path, log_path, quota, today)
+    prompts = prompt_generator.generate_prompts(niches_path, log_path, total_to_generate, today)
 
     results: dict[str, list] = {"ok": [], "failed": []}
     used_niches: list[str] = []
 
     for prompt_text, niche_name in prompts:
+        if len(results["ok"]) >= quota:
+            break
         log.info(f"--- [{niche_name}] ---")
         try:
             img_bytes = image_generator.generate_image(prompt_text)
@@ -75,8 +79,12 @@ def run_pipeline() -> None:
                 results["failed"].append({"niche": niche_name, "error": "QC failed"})
                 continue
 
-            ready_path = ready_dir / (raw_path.stem + ".png")
+            ready_path = ready_dir / (raw_path.stem + ".jpg")
             upscaler.upscale(raw_path, ready_path)
+
+            if not qc_checker.check_post_upscale(ready_path, rejected_dir):
+                results["failed"].append({"niche": niche_name, "error": "post-upscale QC failed"})
+                continue
 
             metadata_writer.write(ready_path, prompt_text, niche_name, contributor_name)
 

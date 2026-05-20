@@ -92,7 +92,7 @@ def _run_exiftool_full(
         "-XMP-plus:ModelStatus=NotAModel",
         f"-IPTC:By-line={contributor_name}",
         f"-XMP-iptcExt:AISystemUsed=OpenAI gpt-image-2",
-        "-XMP-iptcExt:AISystemVersionUsed=gpt-image-2-medium",
+        "-XMP-iptcExt:AISystemVersionUsed=gpt-image-2-high",
         f"-XMP-iptcExt:AIPromptInformation={prompt[:1000]}",
         f"-XMP-iptcExt:AIPromptWriterName={contributor_name}",
         "-overwrite_original",
