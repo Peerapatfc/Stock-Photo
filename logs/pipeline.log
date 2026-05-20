@@ -92,3 +92,16 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   Succeeded : 3
   Failed    : 0
   Est. cost : $0.152
+
+[2026-05-18] Pipeline complete
+  Succeeded : 3
+  Failed    : 0
+  Est. cost : $0.152
+
+[2026-05-19] Pipeline complete
+  Succeeded : 0
+  Failed    : 3
+  Est. cost : $0.020
+  FAIL [Retrofuturism]: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+  FAIL [Technical/Industrial Trades]: RetryError[<Future at 0x7fe7044d6f90 state=finished raised BadRequestError>]
+  FAIL [Sustainable Sophistication]: RetryError[<Future at 0x7fe704526090 state=finished raised BadRequestError>]
