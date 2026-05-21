@@ -114,3 +114,12 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   FAIL [Sustainable Sophistication]: QC failed
   FAIL [Authentic Cultural Scenes]: QC failed
   FAIL [Technical/Industrial Trades]: QC failed
+
+[2026-05-21] Pipeline complete
+  Succeeded : 1
+  Failed    : 4
+  Est. cost : $0.064
+  FAIL [Retrofuturism]: QC failed
+  FAIL [Authentic Cultural Scenes]: QC failed
+  FAIL [Technical/Industrial Trades]: QC failed
+  FAIL [Sustainable Sophistication]: QC failed
