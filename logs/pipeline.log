@@ -141,3 +141,12 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   FAIL [Technical/Industrial Trades]: QC failed
   FAIL [Dark Cyber Neon]: QC failed
   FAIL [Sustainable Sophistication]: QC failed
+
+[2026-05-23] Pipeline complete
+  Succeeded : 1
+  Failed    : 4
+  Est. cost : $0.064
+  FAIL [Technical/Industrial Trades]: QC failed
+  FAIL [Dark Cyber Neon]: QC failed
+  FAIL [Sustainable Sophistication]: QC failed
+  FAIL [Technical/Industrial Trades]: QC failed
