@@ -150,3 +150,13 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   FAIL [Dark Cyber Neon]: QC failed
   FAIL [Sustainable Sophistication]: QC failed
   FAIL [Technical/Industrial Trades]: QC failed
+
+[2026-05-24] Pipeline complete
+  Succeeded : 0
+  Failed    : 5
+  Est. cost : $0.020
+  FAIL [Technical/Industrial Trades]: QC failed
+  FAIL [Dark Cyber Neon]: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+  FAIL [Abstract Color Texture]: RetryError[<Future at 0x7f0c103690d0 state=finished raised BadRequestError>]
+  FAIL [Dark Cyber Neon]: RetryError[<Future at 0x7f0c10533910 state=finished raised BadRequestError>]
+  FAIL [Abstract Color Texture]: RetryError[<Future at 0x7f0c103afe90 state=finished raised BadRequestError>]
