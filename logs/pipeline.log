@@ -160,3 +160,10 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   FAIL [Abstract Color Texture]: RetryError[<Future at 0x7f0c103690d0 state=finished raised BadRequestError>]
   FAIL [Dark Cyber Neon]: RetryError[<Future at 0x7f0c10533910 state=finished raised BadRequestError>]
   FAIL [Abstract Color Texture]: RetryError[<Future at 0x7f0c103afe90 state=finished raised BadRequestError>]
+
+[2026-05-27] Pipeline complete
+  Succeeded : 3
+  Failed    : 2
+  Est. cost : $0.152
+  FAIL [Abstract Color Texture]: QC failed
+  FAIL [Sustainable Sophistication]: QC failed
