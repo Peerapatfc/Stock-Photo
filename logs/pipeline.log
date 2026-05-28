@@ -105,3 +105,65 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   FAIL [Retrofuturism]: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
   FAIL [Technical/Industrial Trades]: RetryError[<Future at 0x7fe7044d6f90 state=finished raised BadRequestError>]
   FAIL [Sustainable Sophistication]: RetryError[<Future at 0x7fe704526090 state=finished raised BadRequestError>]
+
+[2026-05-20] Pipeline complete
+  Succeeded : 1
+  Failed    : 4
+  Est. cost : $0.064
+  FAIL [Dark Cyber Neon]: QC failed
+  FAIL [Sustainable Sophistication]: QC failed
+  FAIL [Authentic Cultural Scenes]: QC failed
+  FAIL [Technical/Industrial Trades]: QC failed
+
+[2026-05-21] Pipeline complete
+  Succeeded : 1
+  Failed    : 4
+  Est. cost : $0.064
+  FAIL [Retrofuturism]: QC failed
+  FAIL [Authentic Cultural Scenes]: QC failed
+  FAIL [Technical/Industrial Trades]: QC failed
+  FAIL [Sustainable Sophistication]: QC failed
+
+[2026-05-22] Pipeline complete
+  Succeeded : 1
+  Failed    : 4
+  Est. cost : $0.064
+  FAIL [Authentic Cultural Scenes]: QC failed
+  FAIL [Technical/Industrial Trades]: QC failed
+  FAIL [Sustainable Sophistication]: RetryError[<Future at 0x7f5185f065d0 state=finished raised BadRequestError>]
+  FAIL [Technical/Industrial Trades]: RetryError[<Future at 0x7f5185f51790 state=finished raised BadRequestError>]
+
+[2026-05-22] Pipeline complete
+  Succeeded : 1
+  Failed    : 4
+  Est. cost : $0.064
+  FAIL [Authentic Cultural Scenes]: QC failed
+  FAIL [Technical/Industrial Trades]: QC failed
+  FAIL [Dark Cyber Neon]: QC failed
+  FAIL [Sustainable Sophistication]: QC failed
+
+[2026-05-23] Pipeline complete
+  Succeeded : 1
+  Failed    : 4
+  Est. cost : $0.064
+  FAIL [Technical/Industrial Trades]: QC failed
+  FAIL [Dark Cyber Neon]: QC failed
+  FAIL [Sustainable Sophistication]: QC failed
+  FAIL [Technical/Industrial Trades]: QC failed
+
+[2026-05-24] Pipeline complete
+  Succeeded : 0
+  Failed    : 5
+  Est. cost : $0.020
+  FAIL [Technical/Industrial Trades]: QC failed
+  FAIL [Dark Cyber Neon]: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+  FAIL [Abstract Color Texture]: RetryError[<Future at 0x7f0c103690d0 state=finished raised BadRequestError>]
+  FAIL [Dark Cyber Neon]: RetryError[<Future at 0x7f0c10533910 state=finished raised BadRequestError>]
+  FAIL [Abstract Color Texture]: RetryError[<Future at 0x7f0c103afe90 state=finished raised BadRequestError>]
+
+[2026-05-27] Pipeline complete
+  Succeeded : 3
+  Failed    : 2
+  Est. cost : $0.152
+  FAIL [Abstract Color Texture]: QC failed
+  FAIL [Sustainable Sophistication]: QC failed
