@@ -1,25 +1,29 @@
 niches:
   - name: "Technical/Industrial Trades"
     weight: 0.25
-    recent_cooldown_days: 3
+    recent_cooldown_days: 7
     base_prompts:
-      - "Electronic circuit board with green PCB traces and gold components, macro photography, sharp detail on capacitors and microchips, dark background, no people"
-      - "Precision CNC milling machine cutting metal with sparks, close-up of cutting tool on stainless steel workpiece, industrial photography, dramatic factory lighting, no people"
-      - "Industrial robotic welding arm in action, orange sparks flying in dark factory environment, long exposure, no people visible, commercial photography"
-      - "Collection of precision mechanical engineering tools arranged on a dark metal surface, socket wrenches, calipers, and drill bits, flat lay product photography, no people"
+      - "Coordinate measuring machine probe tip touching precision aerospace component on granite surface plate, industrial metrology, soft directional light, no people"
+      - "Hydraulic press die stamping stainless steel sheet metal, close-up of forming die and deformed metal, industrial manufacturing detail, factory overhead lighting, no people"
+      - "Plasma cutting torch arc on thick steel plate, close-up of molten slag and kerf, overhead angle, UV-shielded arc glow, no people"
+      - "Industrial fuel injector nozzle cross-section on black velvet, precision engineering product photography, studio macro, chrome and brass detail, no people"
+      - "Turbine compressor blade with dye penetrant inspection fluid under UV light, aerospace NDT process, dark environment, fluorescent crack indication, no people"
+      - "Electrical discharge machining electrode eroding hardened steel block submerged in dielectric fluid, spark erosion underwater close-up, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
       no_brand_logos: true
 
-  - name: "Dark Cyber Neon"
+  - name: "Scientific Research Equipment"
     weight: 0.20
-    recent_cooldown_days: 3
+    recent_cooldown_days: 5
     base_prompts:
-      - "Glowing blue neon circuit board traces on deep midnight blue background, macro detail, digital cyber aesthetic, subtle depth gradient, no people"
-      - "Electric blue energy rings and data flow particles on deep indigo background with subtle atmospheric haze, abstract technology, no people"
-      - "Neon purple and cyan light beams on deep charcoal background with subtle texture, futuristic digital grid, abstract tech, no people"
-      - "Illuminated fiber optic cables on deep slate-grey surface with subtle reflection, macro photography, blue and white light trails, no people"
+      - "Scanning electron microscope sample stub with gold-coated specimen in vacuum chamber port, SEM laboratory, matte grey equipment, no people"
+      - "Optical emission spectrometer prism dispersing white light into full spectrum rainbow on matte white surface, physics optics macro, no people"
+      - "High-performance liquid chromatography instrument with glass solvent bottles and stainless tubing, analytical chemistry laboratory bench, no people"
+      - "Cryogenic liquid nitrogen dewar flask pouring vapor into stainless tray, white condensation fog, laboratory storage concept, overhead angle, no people"
+      - "Thermal imaging camera display showing heat map of industrial motor housing, predictive maintenance concept, orange and blue gradient, no people"
+      - "Flow cytometer sample injection port with fluorescent beads in buffer solution, biomedical research equipment close-up, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
@@ -27,12 +31,12 @@ niches:
 
   - name: "Retrofuturism"
     weight: 0.20
-    recent_cooldown_days: 4
+    recent_cooldown_days: 7
     base_prompts:
-      - "Abstract futuristic control room interior with glowing holographic panels and curved walls, warm amber and teal light, overhead isometric view, no fictional franchise elements, no people"
-      - "Vintage analog synthesizer with glowing green VU meter needles on a dark studio desk, close-up macro on knobs and patch cables, retro electronics product photography, no people"
-      - "Retro mainframe computer room with reel-to-reel tape drives and blinking indicator lights, warm amber overhead light, 1960s computing aesthetic, no people"
-      - "Transparent acrylic model of a concept monorail train on a display stand, studio photography, clean white background, industrial design aesthetic, no people"
+      - "Vintage analog synthesizer close-up of patch bay with colorful cable connections and illuminated VU meter needles, warm amber studio light, product photography, no people"
+      - "Transparent acrylic architectural model of a transit hub on a display table, studio photography, soft diffused overhead light, urban planning aesthetic, no people"
+      - "Collection of vintage scientific instruments — galvanometer, Wheatstone bridge, slide rule — arranged on dark oak desk, natural window light, no people"
+      - "Antique telegraph repeater station equipment with Morse key and relay coils on wooden cabinet, museum display lighting, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
@@ -40,7 +44,7 @@ niches:
 
   - name: "Abstract Color Texture"
     weight: 0.10
-    recent_cooldown_days: 3
+    recent_cooldown_days: 4
     base_prompts:
       - "Iridescent soap bubble surface with rainbow interference patterns, macro photography, smooth gradient abstract, no people"
       - "Holographic foil texture with shifting pink purple teal colors, abstract background, product shot detail, no people"
@@ -53,7 +57,7 @@ niches:
 
   - name: "Authentic Cultural Scenes"
     weight: 0.15
-    recent_cooldown_days: 3
+    recent_cooldown_days: 4
     base_prompts:
       - "Traditional Thai hand-woven silk on a wooden floor loom, extreme close-up of interlaced warp and weft threads in deep crimson and gold, textile craft macro photography, shallow depth of field, no people"
       - "Antique Thai lacquerware box lid with gold leaf inlay on matte black surface, macro detail of intricate floral geometric pattern, product photography on dark velvet, no people"
@@ -66,7 +70,7 @@ niches:
 
   - name: "Sustainable Sophistication"
     weight: 0.10
-    recent_cooldown_days: 3
+    recent_cooldown_days: 4
     base_prompts:
       - "Biomass pellet fuel in a wicker basket beside a modern pellet stove, warm interior light, macro detail on wood pellet texture, sustainable home heating concept, product photography, no people"
       - "Vertical urban farm wall with hydroponic lettuce and herbs under LED grow lights, industrial warehouse interior, tight grid pattern of green plants, commercial photography, no people"

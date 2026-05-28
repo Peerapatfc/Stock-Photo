@@ -10,12 +10,12 @@ log = logging.getLogger(__name__)
 MIN_WIDTH = 1024
 MIN_HEIGHT = 1024
 MIN_FILE_BYTES = 200 * 1024  # 200KB
-MIN_SHARPNESS = 120     # raised from 80; Adobe rejects soft focus below this
-MAX_OVEREXPOSED = 0.06  # tightened from 0.12; gpt-image-2 "high" blows highlights
+MIN_SHARPNESS = 140     # raised; Adobe QC increasingly strict on soft focus
+MAX_OVEREXPOSED = 0.05  # tighter; blown highlights = instant quality reject
 MAX_UNDEREXPOSED = 0.08 # asymmetric: dark niches need slightly more room than bright
-MAX_MEAN_SATURATION = 160    # HSV-S mean (0-255); above = oversaturated/filtered look
-MAX_HIGH_SAT_FRACTION = 0.30 # fraction of pixels with S > 200; above = neon artifact
-MAX_CONTRAST_RATIO = 12.0    # p99/p5 brightness ratio; above = extreme contrast flag
+MAX_MEAN_SATURATION = 140    # tighter; catches neon/over-filtered look earlier
+MAX_HIGH_SAT_FRACTION = 0.18 # tighter; 0.30 was letting neon artifacts through
+MAX_CONTRAST_RATIO = 10.0    # tighter; extreme contrast flags as "excessive filtering"
 
 
 def _sharpness_score(img: Image.Image) -> float:

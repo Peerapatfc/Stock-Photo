@@ -67,27 +67,27 @@ def write(image_path: Path, prompt: str, niche: str, contributor_name: str) -> N
         meta.get("keywords", [])[:50],
     )
     log.info(f"Keywords generated: {len(kw_list)}")
-    keywords = ", ".join(kw_list)
-
-    success = _run_exiftool_full(image_path, title, description, keywords, prompt, contributor_name)
+    success = _run_exiftool_full(image_path, title, description, kw_list, prompt, contributor_name)
     if not success:
         log.warning(f"Full IPTC write failed for {image_path.name}, falling back to basic fields")
-        _run_exiftool_basic(image_path, title, description, keywords, contributor_name)
+        _run_exiftool_basic(image_path, title, description, kw_list, contributor_name)
 
 
 def _run_exiftool_full(
     image_path: Path,
     title: str,
     description: str,
-    keywords: str,
+    keywords: list,
     prompt: str,
     contributor_name: str,
 ) -> bool:
     cmd = [
         "exiftool",
+        f"-IPTC:ObjectName={title}",
         f"-Title={title}",
         f"-Description={description}",
-        f"-Keywords={keywords}",
+        f"-IPTC:Caption-Abstract={description}",
+        *[f"-Keywords={kw}" for kw in keywords],
         "-XMP-iptcExt:DigitalSourceType=trainedAlgorithmicMedia",
         "-XMP-plus:ModelStatus=NotAModel",
         f"-IPTC:By-line={contributor_name}",
@@ -114,14 +114,16 @@ def _run_exiftool_basic(
     image_path: Path,
     title: str,
     description: str,
-    keywords: str,
+    keywords: list,
     contributor_name: str,
 ) -> None:
     cmd = [
         "exiftool",
+        f"-IPTC:ObjectName={title}",
         f"-Title={title}",
         f"-Description={description}",
-        f"-Keywords={keywords}",
+        f"-IPTC:Caption-Abstract={description}",
+        *[f"-Keywords={kw}" for kw in keywords],
         "-XMP-iptcExt:DigitalSourceType=trainedAlgorithmicMedia",
         f"-IPTC:By-line={contributor_name}",
         "-overwrite_original",
