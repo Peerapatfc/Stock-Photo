@@ -97,7 +97,7 @@ def sanitize_metadata(title: str, description: str, keywords: list[str]) -> tupl
 
 def _expand_prompt(base_prompt: str, niche_name: str) -> str:
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         messages=[
             {
                 "role": "system",

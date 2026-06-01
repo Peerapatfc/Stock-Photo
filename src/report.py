@@ -6,7 +6,7 @@ log = logging.getLogger(__name__)
 
 COST_PER_IMAGE = 0.041   # gpt-image-2 medium 1536x1024
 COST_PER_UPSCALE = 0.003  # Replicate Real-ESRGAN
-COST_GPT4O_FIXED = 0.02   # prompt expand + keyword gen per run
+COST_GPT4O_FIXED = 0.002  # prompt expand + keyword gen per run (gpt-4o-mini)
 
 
 def write(results: dict, log_path: Path) -> None:

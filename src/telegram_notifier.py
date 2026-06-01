@@ -6,7 +6,7 @@ log = logging.getLogger(__name__)
 
 COST_PER_IMAGE = 0.041
 COST_PER_UPSCALE = 0.003
-COST_GPT4O_FIXED = 0.02
+COST_GPT4O_FIXED = 0.002
 
 _API = "https://api.telegram.org/bot{token}/{method}"
 

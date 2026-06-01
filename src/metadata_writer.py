@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 def _generate_metadata(prompt: str, niche: str) -> dict:
     for attempt in range(3):
         response = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
@@ -46,7 +46,7 @@ def _generate_metadata(prompt: str, niche: str) -> dict:
                     ),
                 },
             ],
-            max_tokens=1000,
+            max_tokens=700,
             temperature=0.3,
             response_format={"type": "json_object"},
         )
