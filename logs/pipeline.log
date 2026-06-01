@@ -167,3 +167,11 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   Est. cost : $0.152
   FAIL [Abstract Color Texture]: QC failed
   FAIL [Sustainable Sophistication]: QC failed
+
+[2026-05-28] Pipeline complete
+  Succeeded : 2
+  Failed    : 3
+  Est. cost : $0.108
+  FAIL [Technical/Industrial Trades]: QC failed
+  FAIL [Sustainable Sophistication]: QC failed
+  FAIL [Technical/Industrial Trades]: QC failed
