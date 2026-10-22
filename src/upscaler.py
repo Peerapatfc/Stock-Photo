@@ -20,10 +20,12 @@ def _local_binary() -> str | None:
 def _upscale_local(binary: str, input_path: Path, output_path: Path) -> None:
     """Run realesrgan-ncnn-vulkan (free). On GPU-less runners device 0 is mesa's llvmpipe (software Vulkan);
     this build rejects `-g -1` ("invalid gpu device")."""
-    tmp_png = output_path.with_suffix(".esrgan.png")
-    cmd = [binary, "-i", str(input_path), "-o", str(tmp_png), "-n", "realesrgan-x4plus", "-s", "4", "-g", "0"]
-    # the binary resolves models/ relative to its own directory
+    tmp_png = output_path.with_suffix(".esrgan.png").resolve()
+    cmd = [binary, "-i", str(input_path.resolve()), "-o", str(tmp_png), "-n", "realesrgan-x4plus", "-s", "4", "-g", "0"]
+    # the binary resolves models/ relative to its own directory, hence cwd and absolute paths
     subprocess.run(cmd, check=True, cwd=Path(binary).parent, timeout=1800)
+    if not tmp_png.exists():  # the binary can exit 0 after "decode image failed"
+        raise RuntimeError(f"Real-ESRGAN produced no output for {input_path.name}")
     try:
         with Image.open(tmp_png) as img:
             img = img.convert("RGB")
