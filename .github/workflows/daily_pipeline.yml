@@ -28,13 +28,13 @@ jobs:
           sudo apt-get install -y libimage-exiftool-perl
           echo "exiftool version: $(exiftool -ver)"
 
-      - name: Install Real-ESRGAN (CPU, free alternative to Replicate)
+      - name: Install Real-ESRGAN general-x4v3 (CPU torch, free alternative to Replicate)
         run: |
-          curl -sSL -o esrgan.zip https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-ubuntu.zip
-          unzip -q esrgan.zip -d "$HOME/realesrgan"
-          chmod +x "$HOME/realesrgan/realesrgan-ncnn-vulkan"
-          sudo apt-get install -y libvulkan1 mesa-vulkan-drivers
-          echo "REALESRGAN_BIN=$HOME/realesrgan/realesrgan-ncnn-vulkan" >> "$GITHUB_ENV"
+          pip install numpy
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          mkdir -p "$HOME/weights"
+          curl -sSL -o "$HOME/weights/realesr-general-x4v3.pth" https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-general-x4v3.pth
+          echo "REALESRGAN_WEIGHTS=$HOME/weights/realesr-general-x4v3.pth" >> "$GITHUB_ENV"
 
       - name: Run pipeline
         env:

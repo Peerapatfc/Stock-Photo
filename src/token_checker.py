@@ -24,7 +24,7 @@ def _check_openai() -> tuple[bool, str]:
 
 
 def _check_replicate() -> tuple[bool, str]:
-    if os.environ.get("REALESRGAN_BIN"):
+    if os.environ.get("REALESRGAN_WEIGHTS"):
         return True, "not needed (local Real-ESRGAN)"
     token = os.environ.get("REPLICATE_API_TOKEN", "")
     if not token:

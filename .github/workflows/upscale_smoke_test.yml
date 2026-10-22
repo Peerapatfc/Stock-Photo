@@ -8,6 +8,7 @@ on:
 jobs:
   upscale:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -15,16 +16,17 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
-        run: pip install pillow replicate
-
-      - name: Install Real-ESRGAN
+      - name: Install dependencies (CPU-only torch)
         run: |
-          curl -sSL -o esrgan.zip https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-ubuntu.zip
-          unzip -q esrgan.zip -d "$HOME/realesrgan"
-          chmod +x "$HOME/realesrgan/realesrgan-ncnn-vulkan"
-          sudo apt-get install -y libvulkan1 mesa-vulkan-drivers
-          echo "REALESRGAN_BIN=$HOME/realesrgan/realesrgan-ncnn-vulkan" >> "$GITHUB_ENV"
+          pip install pillow numpy replicate
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Download realesr-general-x4v3 weights
+        run: |
+          mkdir -p "$HOME/weights"
+          curl -sSL -o "$HOME/weights/realesr-general-x4v3.pth" https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-general-x4v3.pth
+          ls -l "$HOME/weights"
+          echo "REALESRGAN_WEIGHTS=$HOME/weights/realesr-general-x4v3.pth" >> "$GITHUB_ENV"
 
       - name: Upscale a synthetic 1536x1024 image
         run: |
