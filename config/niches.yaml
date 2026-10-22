@@ -17,6 +17,9 @@ niches:
       - "Hand-forged steel chisels and a hammer on a weathered oak workbench in a bright workshop, traditional metalworking trade, overcast window light, no people"
       - "Stacked brushed aluminium extrusion profiles in a bright warehouse bay, cut ends showing cross-section pattern, industrial supply concept, no people"
       - "Gear wheels of different sizes meshing on a pale grey steel plate, mechanical engineering concept, softbox studio light, no people"
+      - "Hydraulic cylinders with polished chrome piston rods lined up on a light grey workshop bench, industrial components, even overhead daylight, no people"
+      - "Freshly stamped sheet metal brackets stacked in a light grey bin beside a mechanical press, manufacturing detail, bright factory daylight, no people"
+    market_terms: ["hydraulic press", "hydraulic cylinder", "metal stamping die", "gauge blocks micrometer", "industrial gearbox"]
     constraints:
       no_artist_names: true
       no_real_faces: true
@@ -34,6 +37,7 @@ niches:
       - "Digital analytical balance with a small glass weighing boat and spatula, chemistry laboratory, soft diffused light, light grey surround, no people"
       - "Stainless steel autoclave door with pressure gauge in a bright sterilisation room, laboratory infrastructure detail, even overhead light, no people"
       - "Laboratory pipette set in a stand beside a multi-well plate, biomedical research detail, soft window light, light grey bench, no people"
+    market_terms: ["scanning electron microscope", "laboratory glassware", "centrifuge laboratory", "analytical balance", "autoclave laboratory"]
     constraints:
       no_artist_names: true
       no_real_faces: true
@@ -49,6 +53,7 @@ niches:
       - "Mid-century brass desk lamp and a vintage rotary telephone on a beige linen surface, soft daylight, retro office concept, no people"
       - "Vintage reel-to-reel tape recorder on a light wooden shelf, soft window light, analog audio concept, no people"
       - "Mid-century modernist armchair in a bright airy room with pale walls and a light wood floor, soft daylight, no people"
+    market_terms: ["vintage synthesizer", "reel to reel tape recorder", "vintage rotary telephone", "mid century modern armchair"]
     constraints:
       no_artist_names: true
       no_real_faces: true
@@ -64,6 +69,7 @@ niches:
       - "Brushed copper sheet with gentle linear grain and warm mid-tone reflections, macro texture, softbox light, no people"
       - "Close-up of linen weave in muted blue-grey, texture background, soft diffused daylight, no people"
       - "Smooth river pebbles in muted earth tones arranged flat, overhead texture background, overcast light, no people"
+    market_terms: ["linen texture", "handmade paper texture", "sand dune pattern", "brushed copper texture"]
     constraints:
       no_artist_names: true
       no_real_faces: true
@@ -75,12 +81,13 @@ niches:
     base_prompts:
       - "Dried kaffir lime leaves and galangal root on a weathered stone mortar, macro ingredient photography, soft top-down natural light, culinary craft concept, no people"
       - "Hand-painted paper umbrellas drying in the open air against a plain pale wall, traditional Thai craft detail, bright overcast light, no people"
-      - "Stacked woven bamboo steamer baskets on a wooden market stall, soft morning daylight, Southeast Asian kitchen concept, no people"
-      - "Bundle of fresh lemongrass, Thai basil and chilies on a bamboo mat, overhead view, soft daylight, culinary ingredients, no people"
+      - "Folded bolts of hand-woven Thai silk fabric in muted earth tones on a pale wooden shelf, soft window light, textile craft concept, no people"
+      - "Skeins of naturally dyed cotton thread in indigo and ochre hanging beside a whitewashed wall, soft daylight, traditional dyeing craft, no people"
       - "Carved teak wooden spice boxes on a light wooden table, natural window light, traditional craft concept, no people"
-      - "Rows of banana-leaf wrapped parcels tied with twine on a woven tray, overhead view, soft daylight, street food preparation concept, no people"
       - "Traditional mortar and pestle with fresh curry paste ingredients on a white-washed table, bright natural light, no people"
       - "Hand-woven rattan baskets stacked beside a sunlit window, natural fibre texture, soft daylight, no people"
+      - "Sheets of handmade mulberry paper drying on a bamboo rack in bright shade, rural craft workshop, soft daylight, no people"
+    market_terms: ["thai street food", "bamboo steamer", "thai silk fabric", "natural dye cotton thread", "teak wood carving"]
     constraints:
       no_artist_names: true
       no_real_faces: true
@@ -97,6 +104,7 @@ niches:
       - "Seedling trays with young green sprouts in compostable pots on a bright workbench, urban gardening concept, soft daylight, no people"
       - "Cork yoga blocks and a rolled natural rubber mat on a light wooden floor, sustainable wellness concept, soft window light, no people"
       - "Rainwater collection barrel with a copper tap beside a whitewashed wall, sustainable home concept, soft overcast light, no people"
+    market_terms: ["zero waste kitchen", "bamboo toothbrush", "rainwater harvesting", "organic cotton textile"]
     constraints:
       no_artist_names: true
       no_real_faces: true

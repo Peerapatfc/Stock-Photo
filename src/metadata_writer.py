@@ -4,13 +4,21 @@ import subprocess
 from pathlib import Path
 
 from openai import OpenAI
+
+from . import market_insights
 from .prompt_generator import sanitize_metadata
 
 client = OpenAI()
 log = logging.getLogger(__name__)
 
 
-def _generate_metadata(prompt: str, niche: str) -> dict:
+def _generate_metadata(prompt: str, niche: str, hints: list[str] | None = None) -> dict:
+    hint_line = (
+        f"Buyer vocabulary seen in top-ranked listings for this niche (use only the ones that truly "
+        f"describe the image): {', '.join(hints)}.\n"
+        if hints
+        else ""
+    )
     for attempt in range(3):
         response = client.chat.completions.create(
             model="gpt-4o-mini",
@@ -32,17 +40,21 @@ def _generate_metadata(prompt: str, niche: str) -> dict:
                     "role": "user",
                     "content": (
                         f"Niche: {niche}\n"
-                        f"Image description: {prompt}\n\n"
+                        f"Image description: {prompt}\n"
+                        f"{hint_line}\n"
                         "Return JSON with:\n"
-                        '- "title": max 200 chars, descriptive commercial English title. '
-                        "Include the main subject. Do NOT include: 'generative AI', 'AI-generated', "
+                        '- "title": ideally under 70 characters (hard max 200), plain descriptive English. '
+                        "Lead with the single most visually important subject, then one or two qualifiers "
+                        "(material, setting). No gear jargon, no filler like 'high quality'. "
+                        "Do NOT include: 'generative AI', 'AI-generated', "
                         "'artificial intelligence', 'AI', 'machine learning', or any AI-related terms.\n"
                         '- "description": 1-2 sentences describing commercial use cases\n'
-                        '- "keywords": array of EXACTLY 40 English keywords, no duplicates. '
-                        "IMPORTANT: the first 10 keywords MUST include the individual words and concepts "
-                        "from the title, in order of relevance. Remaining 30 keywords expand to related concepts. "
+                        '- "keywords": array of EXACTLY 30 English keywords, no duplicates, ordered from most '
+                        "to least relevant (Adobe weights the first 10 most). The first 10 must be the subject "
+                        "words buyers would actually type (concrete nouns first, e.g. the object, its material, "
+                        "the setting), then use-case concepts. Remaining 20 expand to related concepts and synonyms. "
                         "Do NOT include 'generative AI', 'AI-generated', 'artificial intelligence', or any AI-related terms in keywords. "
-                        "Must include at least 40 items."
+                        "Must include at least 30 items."
                     ),
                 },
             ],
@@ -53,14 +65,17 @@ def _generate_metadata(prompt: str, niche: str) -> dict:
         meta = json.loads(response.choices[0].message.content)
         kw_count = len(meta.get("keywords", []))
         if kw_count >= 25:
-            return meta
+            return meta  # Adobe: 5-49 keywords accepted; 25+ keeps the long tail without padding
         log.warning(f"Metadata retry {attempt + 1}/3 — only {kw_count} keywords generated")
     log.error("Failed to generate 25+ keywords after 3 attempts, using last result")
     return meta
 
 
-def write(image_path: Path, prompt: str, niche: str, contributor_name: str) -> None:
-    meta = _generate_metadata(prompt, niche)
+def write(image_path: Path, prompt: str, niche: str, contributor_name: str, insights_path: Path | None = None) -> None:
+    if insights_path is None:
+        insights_path = Path(__file__).parent.parent / "data" / "market_insights.json"
+    hints = market_insights.keyword_hints(market_insights.load(insights_path), niche)
+    meta = _generate_metadata(prompt, niche, hints)
     title, description, kw_list = sanitize_metadata(
         meta.get("title", niche)[:200],
         meta.get("description", ""),

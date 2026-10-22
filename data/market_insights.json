@@ -1,0 +1,30 @@
+{
+  "updated": "2026-10-22",
+  "source": "stock.adobe.com public photo search; see docs/market_research_th.md",
+  "terms": {
+    "Technical/Industrial Trades": {
+      "hydraulic press": {"human": 4557, "ai": 2643, "human_undisc": 2381},
+      "hydraulic cylinder": {"human": 8023, "ai": 3845, "human_undisc": 4713}
+    },
+    "Scientific Research Equipment": {
+      "scanning electron microscope": {"human": 1614, "ai": 3165, "human_undisc": 1245},
+      "laboratory glassware": {"human": 148073, "ai": 177172, "human_undisc": 109174},
+      "centrifuge laboratory": {"human": 6054, "ai": 5320, "human_undisc": 3575}
+    },
+    "Retrofuturism": {
+      "vintage synthesizer": {"human": 2788, "ai": 2249, "human_undisc": 1806}
+    },
+    "Abstract Color Texture": {
+      "linen texture": {"human": 307972, "ai": 428810, "human_undisc": 232373}
+    },
+    "Authentic Cultural Scenes": {
+      "thai street food": {"human": 87044, "ai": 33167, "human_undisc": 75160},
+      "bamboo steamer": {"human": 25399, "ai": 35355, "human_undisc": 20062},
+      "thai silk fabric": {"human": 19731, "ai": 4595, "human_undisc": 15659}
+    },
+    "Sustainable Sophistication": {
+      "zero waste kitchen": {"human": 30322, "ai": 51675, "human_undisc": 22798}
+    }
+  },
+  "keyword_hints": {}
+}

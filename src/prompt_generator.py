@@ -1,10 +1,13 @@
 import json
+import logging
 import random
 from datetime import date, timedelta
 from pathlib import Path
 
 import yaml
 from openai import OpenAI
+
+from . import market_insights
 
 client = OpenAI()
 
@@ -57,12 +60,15 @@ def _is_on_cooldown(niche: dict, log: dict, today: date) -> bool:
     return False
 
 
-def _select_niches(niches: list[dict], log: dict, today: date, quota: int) -> list[dict]:
+def _select_niches(
+    niches: list[dict], log: dict, today: date, quota: int, multipliers: dict[str, float] | None = None
+) -> list[dict]:
     available = [n for n in niches if not _is_on_cooldown(n, log, today)]
     if not available:
         available = niches  # fallback: all on cooldown
 
-    weights = [n["weight"] for n in available]
+    multipliers = multipliers or {}
+    weights = [n["weight"] * multipliers.get(n["name"], 1.0) for n in available]
     total = sum(weights)
     norm_weights = [w / total for w in weights]
 
@@ -185,7 +191,13 @@ def generate_prompts(
     niches = load_niches(niches_path)
     log = load_usage_log(log_path)
     subject_log = load_subject_log(subject_log_path)
-    selected = _select_niches(niches, log, today, quota)
+    insights = market_insights.load(log_path.with_name("market_insights.json"))
+    multipliers = market_insights.niche_multipliers(insights, today)
+    if multipliers:
+        logging.getLogger(__name__).info(
+            "Market weights: " + ", ".join(f"{n}={m:.2f}" for n, m in sorted(multipliers.items()))
+        )
+    selected = _select_niches(niches, log, today, quota, multipliers)
 
     results = []
     for niche in selected:
