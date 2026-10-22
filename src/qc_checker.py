@@ -13,9 +13,9 @@ MIN_FILE_BYTES = 200 * 1024  # 200KB
 MIN_SHARPNESS = 140     # raised; Adobe QC increasingly strict on soft focus
 MAX_OVEREXPOSED = 0.05  # tighter; blown highlights = instant quality reject
 MAX_UNDEREXPOSED = 0.08 # asymmetric: dark niches need slightly more room than bright
-MAX_MEAN_SATURATION = 140    # tighter; catches neon/over-filtered look earlier
+MAX_MEAN_SATURATION = 155    # was 140; rejected-by-QC images reviewed by hand looked fine (mean S 148.8)
 MAX_HIGH_SAT_FRACTION = 0.18 # tighter; 0.30 was letting neon artifacts through
-MAX_CONTRAST_RATIO = 10.0    # tighter; extreme contrast flags as "excessive filtering"
+MAX_CONTRAST_RATIO = 40.0    # was 10; p99/p5 hit 25-35 on normal photos with natural shadows. Exposure checks still cap clipping
 
 
 def _sharpness_score(img: Image.Image) -> float:
