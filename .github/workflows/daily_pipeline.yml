@@ -65,3 +65,12 @@ jobs:
           name: stock-photos-${{ github.run_id }}
           path: output/*/ready/
           retention-days: 7
+
+      - name: Upload QC-rejected images as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rejected-${{ github.run_id }}
+          path: output/*/rejected/
+          retention-days: 7
+          if-no-files-found: ignore
