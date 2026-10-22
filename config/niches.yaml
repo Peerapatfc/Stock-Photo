@@ -1,14 +1,22 @@
+# Prompt design notes (tuned against Adobe Stock rejections and src/qc_checker.py thresholds):
+# - Mid-tone, evenly lit scenes only. No black velvet / dark rooms / UV or arc glow (contrast ratio and
+#   underexposure fail). No pure-white backdrops or fog (overexposure fail) — use light grey / beige / wood.
+# - Avoid subjects Adobe already rejected as "similar content": PCBs, fiber optics, CNC milling, welding arcs,
+#   biomass pellets, lithium cell teardown, Thai loom / lacquerware / ceramics, eco packaging, wind turbines,
+#   mainframe rooms, neon cityscapes.
+# - prompt_generator rotates through base_prompts least-recently-used first, so keep each list varied.
 niches:
   - name: "Technical/Industrial Trades"
-    weight: 0.25
+    weight: 0.12
     recent_cooldown_days: 7
     base_prompts:
-      - "Coordinate measuring machine probe tip touching precision aerospace component on granite surface plate, industrial metrology, soft directional light, no people"
-      - "Hydraulic press die stamping stainless steel sheet metal, close-up of forming die and deformed metal, industrial manufacturing detail, factory overhead lighting, no people"
-      - "Plasma cutting torch arc on thick steel plate, close-up of molten slag and kerf, overhead angle, UV-shielded arc glow, no people"
-      - "Industrial fuel injector nozzle cross-section on black velvet, precision engineering product photography, studio macro, chrome and brass detail, no people"
-      - "Turbine compressor blade with dye penetrant inspection fluid under UV light, aerospace NDT process, dark environment, fluorescent crack indication, no people"
-      - "Electrical discharge machining electrode eroding hardened steel block submerged in dielectric fluid, spark erosion underwater close-up, no people"
+      - "Coordinate measuring machine probe tip touching a precision aerospace component on a light grey granite surface plate, industrial metrology, soft overhead daylight, no people"
+      - "Hydraulic press die with a freshly stamped stainless steel bracket beside it on a pale workbench, industrial manufacturing detail, even factory daylight from skylights, no people"
+      - "Row of calibrated gauge blocks and a micrometer on a light beige metrology bench, precision measurement concept, soft window light, no people"
+      - "Industrial fuel injector nozzle and cutaway sections on a light grey studio table, precision engineering product photography, soft diffused light, chrome and brass detail, no people"
+      - "Hand-forged steel chisels and a hammer on a weathered oak workbench in a bright workshop, traditional metalworking trade, overcast window light, no people"
+      - "Stacked brushed aluminium extrusion profiles in a bright warehouse bay, cut ends showing cross-section pattern, industrial supply concept, no people"
+      - "Gear wheels of different sizes meshing on a pale grey steel plate, mechanical engineering concept, softbox studio light, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
@@ -18,25 +26,29 @@ niches:
     weight: 0.20
     recent_cooldown_days: 5
     base_prompts:
-      - "Scanning electron microscope sample stub with gold-coated specimen in vacuum chamber port, SEM laboratory, matte grey equipment, no people"
-      - "Optical emission spectrometer prism dispersing white light into full spectrum rainbow on matte white surface, physics optics macro, no people"
-      - "High-performance liquid chromatography instrument with glass solvent bottles and stainless tubing, analytical chemistry laboratory bench, no people"
-      - "Cryogenic liquid nitrogen dewar flask pouring vapor into stainless tray, white condensation fog, laboratory storage concept, overhead angle, no people"
-      - "Thermal imaging camera display showing heat map of industrial motor housing, predictive maintenance concept, orange and blue gradient, no people"
-      - "Flow cytometer sample injection port with fluorescent beads in buffer solution, biomedical research equipment close-up, no people"
+      - "Scanning electron microscope specimen stubs in a small aluminium tray on a light grey laboratory bench, matte grey equipment, soft diffused lab lighting, no people"
+      - "High-performance liquid chromatography instrument with glass solvent bottles and stainless tubing, analytical chemistry laboratory bench, bright even lab lighting, no people"
+      - "Glass petri dishes and borosilicate beakers on a pale laboratory bench, soft window light, clean scientific research concept, no people"
+      - "Rack of glass test tubes with pale amber liquid samples, laboratory bench, soft daylight, shallow depth of field, no people"
+      - "Thermal imaging camera on a tripod pointed at an industrial motor housing, predictive maintenance concept, bright plant-room daylight, no people"
+      - "Digital analytical balance with a small glass weighing boat and spatula, chemistry laboratory, soft diffused light, light grey surround, no people"
+      - "Stainless steel autoclave door with pressure gauge in a bright sterilisation room, laboratory infrastructure detail, even overhead light, no people"
+      - "Laboratory pipette set in a stand beside a multi-well plate, biomedical research detail, soft window light, light grey bench, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
       no_brand_logos: true
 
   - name: "Retrofuturism"
-    weight: 0.20
+    weight: 0.08
     recent_cooldown_days: 7
     base_prompts:
-      - "Vintage analog synthesizer close-up of patch bay with colorful cable connections and illuminated VU meter needles, warm amber studio light, product photography, no people"
-      - "Transparent acrylic architectural model of a transit hub on a display table, studio photography, soft diffused overhead light, urban planning aesthetic, no people"
-      - "Collection of vintage scientific instruments — galvanometer, Wheatstone bridge, slide rule — arranged on dark oak desk, natural window light, no people"
-      - "Antique telegraph repeater station equipment with Morse key and relay coils on wooden cabinet, museum display lighting, no people"
+      - "Vintage analog synthesizer close-up of patch bay with coloured cable connections and VU meter needles, warm even studio light, product photography, no people"
+      - "Collection of vintage scientific instruments — galvanometer, Wheatstone bridge, slide rule — arranged on a light oak desk, natural window light, no people"
+      - "Antique telegraph key and relay coils on a pale wooden cabinet, bright museum display lighting, no people"
+      - "Mid-century brass desk lamp and a vintage rotary telephone on a beige linen surface, soft daylight, retro office concept, no people"
+      - "Vintage reel-to-reel tape recorder on a light wooden shelf, soft window light, analog audio concept, no people"
+      - "Mid-century modernist armchair in a bright airy room with pale walls and a light wood floor, soft daylight, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
@@ -46,36 +58,45 @@ niches:
     weight: 0.10
     recent_cooldown_days: 4
     base_prompts:
-      - "Iridescent soap bubble surface with rainbow interference patterns, macro photography, smooth gradient abstract, no people"
-      - "Holographic foil texture with shifting pink purple teal colors, abstract background, product shot detail, no people"
-      - "Flowing liquid metallic paint in teal and gold, overhead macro, abstract color texture, no people"
-      - "Silk fabric with iridescent color-shifting sheen, close-up texture, abstract background, no people"
+      - "Soft pastel watercolour wash in pale peach and sage, paper grain visible, overhead abstract background, even soft light, no people"
+      - "Rippled sand dune pattern in warm beige tones, overhead macro texture, soft natural daylight, no people"
+      - "Folded handmade paper with subtle cream and grey tones, close-up texture, soft side light, abstract background, no people"
+      - "Brushed copper sheet with gentle linear grain and warm mid-tone reflections, macro texture, softbox light, no people"
+      - "Close-up of linen weave in muted blue-grey, texture background, soft diffused daylight, no people"
+      - "Smooth river pebbles in muted earth tones arranged flat, overhead texture background, overcast light, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
       no_brand_logos: true
 
   - name: "Authentic Cultural Scenes"
-    weight: 0.15
+    weight: 0.25
     recent_cooldown_days: 4
     base_prompts:
-      - "Traditional Thai hand-woven silk on a wooden floor loom, extreme close-up of interlaced warp and weft threads in deep crimson and gold, textile craft macro photography, shallow depth of field, no people"
-      - "Antique Thai lacquerware box lid with gold leaf inlay on matte black surface, macro detail of intricate floral geometric pattern, product photography on dark velvet, no people"
-      - "Dried kaffir lime leaves and galangal root arranged on weathered stone mortar, macro ingredient photography, soft top-down natural light, culinary craft concept, no people"
-      - "Traditional palm leaf manuscript fragment with ancient script inscription, macro texture photography, warm amber light, aged organic material detail, no people"
+      - "Dried kaffir lime leaves and galangal root on a weathered stone mortar, macro ingredient photography, soft top-down natural light, culinary craft concept, no people"
+      - "Hand-painted paper umbrellas drying in the open air against a plain pale wall, traditional Thai craft detail, bright overcast light, no people"
+      - "Stacked woven bamboo steamer baskets on a wooden market stall, soft morning daylight, Southeast Asian kitchen concept, no people"
+      - "Bundle of fresh lemongrass, Thai basil and chilies on a bamboo mat, overhead view, soft daylight, culinary ingredients, no people"
+      - "Carved teak wooden spice boxes on a light wooden table, natural window light, traditional craft concept, no people"
+      - "Rows of banana-leaf wrapped parcels tied with twine on a woven tray, overhead view, soft daylight, street food preparation concept, no people"
+      - "Traditional mortar and pestle with fresh curry paste ingredients on a white-washed table, bright natural light, no people"
+      - "Hand-woven rattan baskets stacked beside a sunlit window, natural fibre texture, soft daylight, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true
       no_brand_logos: true
 
   - name: "Sustainable Sophistication"
-    weight: 0.10
+    weight: 0.15
     recent_cooldown_days: 4
     base_prompts:
-      - "Biomass pellet fuel in a wicker basket beside a modern pellet stove, warm interior light, macro detail on wood pellet texture, sustainable home heating concept, product photography, no people"
-      - "Vertical urban farm wall with hydroponic lettuce and herbs under LED grow lights, industrial warehouse interior, tight grid pattern of green plants, commercial photography, no people"
-      - "Disassembled lithium battery cells from an electric vehicle laid out on a workshop table, overhead flat lay, industrial detail photography, recycling concept, no people"
-      - "Terracotta water filtration vessel on rough concrete surface, water droplets on ceramic texture, sustainable water purification concept, macro product photography, no people"
+      - "Terracotta water filtration vessel on a light concrete surface, water droplets on ceramic texture, sustainable water purification concept, macro product photography, soft daylight, no people"
+      - "Reusable glass jars of dried grains and legumes on a light wooden shelf, zero-waste pantry concept, soft window light, no people"
+      - "Natural linen and organic cotton textiles folded in a stack on a pale oak table, sustainable fashion concept, soft daylight, no people"
+      - "Bamboo toothbrushes and a wooden comb in a ceramic dish on a light stone shelf, sustainable personal care concept, soft diffused light, no people"
+      - "Seedling trays with young green sprouts in compostable pots on a bright workbench, urban gardening concept, soft daylight, no people"
+      - "Cork yoga blocks and a rolled natural rubber mat on a light wooden floor, sustainable wellness concept, soft window light, no people"
+      - "Rainwater collection barrel with a copper tap beside a whitewashed wall, sustainable home concept, soft overcast light, no people"
     constraints:
       no_artist_names: true
       no_real_faces: true

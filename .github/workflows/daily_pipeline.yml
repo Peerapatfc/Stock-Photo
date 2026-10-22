@@ -52,7 +52,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/niche_usage_log.json logs/pipeline.log
+          git add data/niche_usage_log.json data/subject_usage_log.json logs/pipeline.log
           git diff --staged --quiet || git commit -m "chore: niche log $(date +%Y-%m-%d)"
           git push
 

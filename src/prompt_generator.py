@@ -80,6 +80,26 @@ def _select_niches(niches: list[dict], log: dict, today: date, quota: int) -> li
     return selected
 
 
+def load_subject_log(path: Path) -> dict:
+    """niche name -> {base_prompt: ISO date it was last used}."""
+    if path.exists():
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+
+def _pick_subject(niche: dict, subject_log: dict, today: date) -> str:
+    """Least-recently-used base prompt, so a niche never repeats a subject until all others were used."""
+    used = subject_log.get(niche["name"], {})
+    oldest = min(used.get(p, "") for p in niche["base_prompts"])
+    candidates = [p for p in niche["base_prompts"] if used.get(p, "") == oldest]
+    choice = random.choice(candidates)
+    used[choice] = today.isoformat()
+    # drop prompts that were removed from niches.yaml so the log stays bounded
+    subject_log[niche["name"]] = {p: d for p, d in used.items() if p in niche["base_prompts"]}
+    return choice
+
+
 def _sanitize(text: str) -> str:
     lower = text.lower()
     for term in BLOCKED_TERMS:
@@ -122,7 +142,12 @@ def _expand_prompt(base_prompt: str, niche_name: str) -> str:
                     "Keep all imagery generic and commercially safe. "
                     "QUALITY RULES: Natural, balanced lighting only — window light, overcast daylight, "
                     "controlled studio softbox. No neon glow, no dramatic backlight, no HDR look. "
-                    "Neutral accurate colors, moderate contrast. Output only the prompt text, nothing else."
+                    "Neutral accurate colors, moderate contrast. "
+                    "EXPOSURE RULES (automated QC rejects clipped highlights, crushed blacks and extreme contrast): "
+                    "evenly lit mid-tone scenes with open, soft shadows. Use light grey, beige, wood or stone "
+                    "backgrounds — never pure white backdrops, fog or glare, and never black velvet, black "
+                    "backgrounds, dark rooms, spark showers, UV light or glowing screens. "
+                    "Output only the prompt text, nothing else."
                 ),
             },
             {
@@ -151,19 +176,24 @@ def generate_prompts(
     log_path: Path,
     quota: int,
     today: date | None = None,
+    subject_log_path: Path | None = None,
 ) -> list[tuple[str, str]]:
     if today is None:
         today = date.today()
+    if subject_log_path is None:
+        subject_log_path = log_path.with_name("subject_usage_log.json")
     niches = load_niches(niches_path)
     log = load_usage_log(log_path)
+    subject_log = load_subject_log(subject_log_path)
     selected = _select_niches(niches, log, today, quota)
 
     results = []
     for niche in selected:
-        base = random.choice(niche["base_prompts"])
+        base = _pick_subject(niche, subject_log, today)
         prompt = _expand_prompt(base, niche["name"])
         results.append((prompt, niche["name"]))
 
+    save_usage_log(subject_log_path, subject_log)
     return results
 
 

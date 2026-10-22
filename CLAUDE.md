@@ -31,6 +31,8 @@ Each image wrapped in try/except — one failure doesn't stop the batch.
 - `config/settings.yaml` — `daily_quota`, `contributor_name`, `upscale_model`
 - `config/niches.yaml` — 4 niches with weights, cooldown_days, base_prompts, constraints
 - `data/niche_usage_log.json` — tracks which niches used per date, committed back to repo by GitHub Actions
+- `data/subject_usage_log.json` — last-used date per base prompt; `prompt_generator` picks the least-recently-used subject per niche so Adobe doesn't reject repeats as "similar content". Also committed by GitHub Actions.
+- `config/niches.yaml` base prompts must be mid-tone and evenly lit (no black velvet/dark rooms/UV/arc glow, no pure-white backdrops) — QC rejects clipped highlights, crushed blacks and contrast ratio > 10. Don't reuse subjects Adobe already rejected as similar (PCBs, fiber optics, CNC, welding, pellets, lithium cells, Thai loom/lacquerware/ceramics, wind turbines).
 
 ## Environment Variables
 
