@@ -184,3 +184,12 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   FAIL [Retrofuturism]: QC failed
   FAIL [Scientific Research Equipment]: QC failed
   FAIL [Sustainable Sophistication]: QC failed
+
+[2026-10-22] Pipeline complete
+  Succeeded : 0
+  Failed    : 4
+  Est. cost : $0.002
+  FAIL [Retrofuturism]: QC failed
+  FAIL [Authentic Cultural Scenes]: QC failed
+  FAIL [Technical/Industrial Trades]: QC failed
+  FAIL [Scientific Research Equipment]: Command '['/home/runner/realesrgan/realesrgan-ncnn-vulkan', '-i', '/home/runner/work/Stock-Photo/Stock-Photo/output/2026-10-22/generated/093945_scientific_research_.png', '-o', '/home/runner/work/Stock-Photo/Stock-Photo/output/2026-10-22/ready/093945_scientific_research_.esrgan.png', '-n', 'realesrgan-x4plus', '-s', '4', '-g', '-1']' returned non-zero exit status 255.
