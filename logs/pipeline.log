@@ -208,3 +208,8 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   Est. cost : $0.090
   FAIL [Technical/Industrial Trades]: QC failed
   FAIL [Authentic Cultural Scenes]: QC failed
+
+[2026-10-22] Pipeline complete
+  Succeeded : 3
+  Failed    : 0
+  Est. cost : $0.134
