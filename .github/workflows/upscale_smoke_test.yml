@@ -1,0 +1,54 @@
+name: Upscale Smoke Test
+
+# Manual only. Checks that local Real-ESRGAN works on a GPU-less runner and times it,
+# without calling OpenAI.
+on:
+  workflow_dispatch:
+
+jobs:
+  upscale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pillow replicate
+
+      - name: Install Real-ESRGAN
+        run: |
+          curl -sSL -o esrgan.zip https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesrgan-ncnn-vulkan-20220424-ubuntu.zip
+          unzip -q esrgan.zip -d "$HOME/realesrgan"
+          chmod +x "$HOME/realesrgan/realesrgan-ncnn-vulkan"
+          sudo apt-get install -y libvulkan1 mesa-vulkan-drivers
+          echo "REALESRGAN_BIN=$HOME/realesrgan/realesrgan-ncnn-vulkan" >> "$GITHUB_ENV"
+
+      - name: Upscale a synthetic 1536x1024 image
+        run: |
+          python - <<'EOF'
+          import random, sys, time
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageFilter
+          sys.path.insert(0, ".")
+          from src import upscaler
+
+          random.seed(1)
+          img = Image.new("RGB", (1536, 1024), (200, 195, 185))
+          d = ImageDraw.Draw(img)
+          for _ in range(400):
+              x, y = random.randrange(1536), random.randrange(1024)
+              r = random.randrange(10, 90)
+              d.ellipse([x, y, x + r, y + r], fill=tuple(random.randrange(60, 230) for _ in range(3)))
+          img = img.filter(ImageFilter.GaussianBlur(1.2))
+          src = Path("smoke_in.png"); img.save(src)
+
+          t = time.time()
+          out = upscaler.upscale(src, Path("smoke_out.jpg"))
+          print(f"upscale seconds: {time.time() - t:.1f}")
+          with Image.open(out) as o:
+              print("output size:", o.size)
+              assert o.size == (3072, 2048), o.size
+          EOF

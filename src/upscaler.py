@@ -18,9 +18,10 @@ def _local_binary() -> str | None:
 
 
 def _upscale_local(binary: str, input_path: Path, output_path: Path) -> None:
-    """Run realesrgan-ncnn-vulkan (free). -g -1 = CPU, for runners without a GPU."""
+    """Run realesrgan-ncnn-vulkan (free). On GPU-less runners device 0 is mesa's llvmpipe (software Vulkan);
+    this build rejects `-g -1` ("invalid gpu device")."""
     tmp_png = output_path.with_suffix(".esrgan.png")
-    cmd = [binary, "-i", str(input_path), "-o", str(tmp_png), "-n", "realesrgan-x4plus", "-s", "4", "-g", "-1"]
+    cmd = [binary, "-i", str(input_path), "-o", str(tmp_png), "-n", "realesrgan-x4plus", "-s", "4", "-g", "0"]
     # the binary resolves models/ relative to its own directory
     subprocess.run(cmd, check=True, cwd=Path(binary).parent, timeout=1800)
     try:
