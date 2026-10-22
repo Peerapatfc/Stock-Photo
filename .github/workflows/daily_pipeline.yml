@@ -1,8 +1,10 @@
 name: Daily Stock Photo Pipeline
 
 on:
-  schedule:
-    - cron: '0 1 * * *'   # 08:00 ICT = 01:00 UTC
+  # Cron paused until the CPU upscaler is verified (local Real-ESRGAN x4plus took ~40 min/image).
+  # Re-enable: restore the two lines below.
+  # schedule:
+  #   - cron: '0 1 * * *'   # 08:00 ICT = 01:00 UTC
   workflow_dispatch:
 
 permissions:
