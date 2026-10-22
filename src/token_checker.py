@@ -103,9 +103,9 @@ def run_checks() -> bool:
     required = [
         ("OpenAI", _check_openai),
         ("Replicate", _check_replicate),
-        ("Google Drive", _check_google_drive),
     ]
     optional = [
+        ("Google Drive", _check_google_drive),
         ("Telegram", _check_telegram),
     ]
 
