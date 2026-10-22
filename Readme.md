@@ -88,7 +88,7 @@ python run_daily.py
 
 ## GitHub Actions
 
-Cron: **08:00 ICT daily** (`0 1 * * *`)
+Cron: **08:00 ICT Mon/Wed/Fri** (`0 1 * * 1,3,5`)
 
 Required secrets (Settings → Secrets → Actions):
 

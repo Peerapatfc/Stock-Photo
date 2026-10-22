@@ -60,7 +60,7 @@ Required Adobe Stock fields: `Title`, `Description`, `Keywords`, `DigitalSourceT
 
 ## GitHub Actions
 
-- Cron: `0 1 * * *` (08:00 ICT)
+- Cron: `0 1 * * 1,3,5` (Mon/Wed/Fri 08:00 ICT)
 - Installs exiftool via `apt-get install -y libimage-exiftool-perl`
 - Commits `data/niche_usage_log.json` + `logs/pipeline.log` back to repo after each run
 - Uploads `output/*/ready/` as artifact (7-day retention)
