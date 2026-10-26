@@ -226,3 +226,12 @@ detail: You have insufficient credit to run this model. Go to https://replicate.
   Est. cost : $0.090
   FAIL [Technical/Industrial Trades]: post-upscale QC failed
   FAIL [Retrofuturism]: QC failed
+
+[2026-10-26] Pipeline complete
+  Succeeded : 0
+  Failed    : 4
+  Est. cost : $0.002
+  FAIL [Retrofuturism]: QC failed
+  FAIL [Retrofuturism]: Error code: 429 - {'error': {'message': 'You have no credits remaining. Add credits to continue using the API at https://platform.openai.com/settings/organization/billing/.', 'type': 'insufficient_quota', 'param': None, 'code': 'credit_balance_exhausted'}}
+  FAIL [Retrofuturism]: RetryError[<Future at 0x7f2aeb4cd850 state=finished raised RateLimitError>]
+  FAIL [Retrofuturism]: RetryError[<Future at 0x7f2aeb418d90 state=finished raised RateLimitError>]
