@@ -1,30 +1,50 @@
 {
-  "updated": "2026-10-22",
+  "updated": "2026-10-27",
   "source": "stock.adobe.com public photo search; see docs/market_research_th.md",
   "terms": {
     "Technical/Industrial Trades": {
-      "hydraulic press": {"human": 4557, "ai": 2643, "human_undisc": 2381},
-      "hydraulic cylinder": {"human": 8023, "ai": 3845, "human_undisc": 4713}
+      "hydraulic press": {"human": 4556, "ai": 2664, "human_undisc": 2381},
+      "hydraulic cylinder": {"human": 8028, "ai": 3872, "human_undisc": 4714},
+      "metal stamping die": {"human": 2386, "ai": 583, "human_undisc": 1458}
     },
     "Scientific Research Equipment": {
-      "scanning electron microscope": {"human": 1614, "ai": 3165, "human_undisc": 1245},
-      "laboratory glassware": {"human": 148073, "ai": 177172, "human_undisc": 109174},
-      "centrifuge laboratory": {"human": 6054, "ai": 5320, "human_undisc": 3575}
+      "scanning electron microscope": {"human": 1620, "ai": 3166, "human_undisc": 1251},
+      "laboratory glassware": {"human": 148178, "ai": 177102, "human_undisc": 109259},
+      "centrifuge laboratory": {"human": 6059, "ai": 5341, "human_undisc": 3581},
+      "autoclave laboratory": {"human": 1285, "ai": 1153, "human_undisc": 591}
     },
     "Retrofuturism": {
-      "vintage synthesizer": {"human": 2788, "ai": 2249, "human_undisc": 1806}
+      "vintage synthesizer": {"human": 2787, "ai": 2241, "human_undisc": 1805},
+      "reel to reel tape recorder": {"human": 7838, "ai": 1317, "human_undisc": 4747},
+      "vintage rotary telephone": {"human": 14740, "ai": 6349, "human_undisc": 10163},
+      "mid century modern armchair": {"human": 1514, "ai": 19990, "human_undisc": 1030}
     },
     "Abstract Color Texture": {
-      "linen texture": {"human": 307972, "ai": 428810, "human_undisc": 232373}
+      "linen texture": {"human": 307963, "ai": 428360, "human_undisc": 232369},
+      "handmade paper texture": {"human": 141231, "ai": 323960, "human_undisc": 105650},
+      "sand dune pattern": {"human": 93615, "ai": 99397, "human_undisc": 76445},
+      "brushed copper texture": {"human": 7566, "ai": 8906, "human_undisc": 5143}
     },
     "Authentic Cultural Scenes": {
-      "thai street food": {"human": 87044, "ai": 33167, "human_undisc": 75160},
-      "bamboo steamer": {"human": 25399, "ai": 35355, "human_undisc": 20062},
-      "thai silk fabric": {"human": 19731, "ai": 4595, "human_undisc": 15659}
+      "thai street food": {"human": 87028, "ai": 33118, "human_undisc": 75146},
+      "bamboo steamer": {"human": 25442, "ai": 35335, "human_undisc": 20103},
+      "thai silk fabric": {"human": 19713, "ai": 4601, "human_undisc": 15642},
+      "natural dye cotton thread": {"human": 2485, "ai": 1997, "human_undisc": 1907},
+      "teak wood carving": {"human": 2294, "ai": 1637, "human_undisc": 1876}
     },
     "Sustainable Sophistication": {
-      "zero waste kitchen": {"human": 30322, "ai": 51675, "human_undisc": 22798}
+      "zero waste kitchen": {"human": 30314, "ai": 51857, "human_undisc": 22785},
+      "bamboo toothbrush": {"human": 27649, "ai": 32268, "human_undisc": 21425},
+      "rainwater harvesting": {"human": 2827, "ai": 16452, "human_undisc": 1931},
+      "organic cotton textile": {"human": 76221, "ai": 93244, "human_undisc": 56224}
     }
   },
-  "keyword_hints": {}
+  "keyword_hints": {
+    "Technical/Industrial Trades": ["hydraulic", "machine", "press", "cylinder", "metal", "industrial", "heavy", "machinery", "equipment", "factory", "construction", "production", "piston", "bending", "sheet"],
+    "Scientific Research Equipment": ["laboratory", "microscope", "glassware", "electron", "scanning", "science", "research", "liquid", "test", "development", "tubes", "concept", "microscopic", "flasks", "chemical"],
+    "Retrofuturism": ["vintage", "synthesizer", "tape", "analog", "recorder", "reel", "keyboard", "isolated", "electronic", "audio", "music", "retro", "white", "synth", "piano"],
+    "Abstract Color Texture": ["texture", "paper", "white", "natural", "linen", "fabric", "design", "canvas", "beige", "handmade", "textile", "transparent", "isolated", "textured", "stationery"],
+    "Authentic Cultural Scenes": ["steamer", "bamboo", "food", "street", "thai", "thailand", "bangkok", "market", "traditional", "asian", "chinese", "white", "dumplings", "steamed", "cooking"],
+    "Sustainable Sophistication": ["waste", "bamboo", "zero", "toothbrush", "concept", "kitchen", "friendly", "white", "food", "sustainable", "lifestyle", "glass", "plastic", "toothbrushes", "natural"]
+  }
 }
